@@ -7,5 +7,8 @@ public class AppController {
         out.println("OK!");
         out.println("Program starting...");
         out.println("Done!");
+        System.out.println("Program starting!");
+        System.out.println("Program starting!");
+
     }
 }
