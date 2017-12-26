@@ -10,6 +10,7 @@ public class AppController {
         System.out.println("OK!");
         System.out.println("User Jack");
         System.out.println("User Vorobei");
+        System.out.println("User Will Turner");
         System.out.println("User Cat" );
         System.out.println("Done!");
     }
