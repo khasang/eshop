@@ -1,10 +1,14 @@
 package io.khasang.eshop.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 public class AppController {
-    public static void main(String[] args) {
-        System.out.println("This program prints alphabet");
-        System.out.println("This is it!");
-        System.out.println("This program prints numbers from 1 to 100");
-        System.out.println("This is it");
+    @RequestMapping("/")
+    public String helloPage(Model model) {
+        model.addAttribute("name", "World");
+        return "hello";
     }
 }
