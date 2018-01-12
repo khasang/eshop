@@ -1,14 +1,16 @@
 package io.khasang.eshop.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 public class AppController {
-    public static void main(String[] args) {
-        System.out.println("Ok!");
-        System.out.println("Program starting...");
-        System.out.println("Program starting...");
-        System.out.println("Program starting...");
-        System.out.println("User Jack");
-        System.out.println("User Vorobei");
-        System.out.println("User Cat");
-        System.out.println("Done!");
+
+    // http://localhost:8080/
+    @RequestMapping("/")
+    public String halloPage(Model model){
+        model.addAttribute("name", "World");
+        return "hello";
     }
 }
