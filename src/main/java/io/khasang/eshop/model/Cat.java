@@ -11,10 +11,6 @@ public class Cat implements CatInterface {
     public Cat() {
     }
 
-    public Cat(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
     }
