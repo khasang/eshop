@@ -100,4 +100,13 @@ public class CreateTable {
             return "Select NoT Complete";
         }
     }
+
+    public String selectCats1(){
+        try {
+            jdbcTemplate.execute("SELECT name, description, CASE WHEN name = 'Kapa' THEN 'my cat' else '' END FROM cats");
+            return "Select Complete";
+        } catch(Exception e){
+            return "Select NoT Complete";
+        }
+    }
 }

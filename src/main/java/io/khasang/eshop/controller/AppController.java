@@ -35,6 +35,7 @@ public class AppController {
                 createTable.addColorsInTable() + " " +
                 createTable.updateCats() + " " +
                 createTable.deletCats() + " " +
-                createTable.selectCats();
+                createTable.selectCats() + " " +
+                createTable.selectCats1();
     }
 }
