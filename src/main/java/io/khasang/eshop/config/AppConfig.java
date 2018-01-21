@@ -1,6 +1,6 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.model.CreateTable;
+import io.khasang.eshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,11 +8,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import javax.sql.DataSource;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 @Configuration
 @PropertySource(value = "classpath:util.properties")
+@PropertySource(value = "classpath:auth.properties")
 public class AppConfig {
     @Autowired
     private Environment environment;
@@ -28,6 +29,15 @@ public class AppConfig {
     }
 
     @Bean
+    public UserDetailsService userDetailsService() {
+        JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
+        jdbcDao.setDataSource(dataSource());
+        jdbcDao.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
+        jdbcDao.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
+        return jdbcDao;
+    }
+
+    @Bean
     public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
@@ -37,5 +47,25 @@ public class AppConfig {
     @Bean
     public CreateTable createTable() {
         return new CreateTable(jdbcTemplate());
+    }
+
+    @Bean
+    public SelectRecord selectRecord() {
+        return new SelectRecord(jdbcTemplate());
+    }
+
+    @Bean
+    public InsertRow insertRow() {
+        return new InsertRow(jdbcTemplate());
+    }
+
+    @Bean
+    public UpdateTable update() {
+        return new UpdateTable(jdbcTemplate());
+    }
+
+    @Bean
+    public DeleteRecord deleteRecord() {
+        return new DeleteRecord(jdbcTemplate());
     }
 }
