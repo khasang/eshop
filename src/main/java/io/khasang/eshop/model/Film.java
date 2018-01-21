@@ -1,8 +1,5 @@
 package io.khasang.eshop.model;
 
-/**
- * Created by Вадим on 16.01.2018.
- */
 public class Film {
     private int id;
     private String name;

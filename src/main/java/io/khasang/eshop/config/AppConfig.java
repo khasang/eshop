@@ -1,5 +1,4 @@
 package io.khasang.eshop.config;
-
 import io.khasang.eshop.model.Cat;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;

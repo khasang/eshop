@@ -1,5 +1,4 @@
 package io.khasang.eshop.controller;
-
 import io.khasang.eshop.model.Cat;
 import io.khasang.eshop.model.CreateTable;
 import io.khasang.eshop.model.Dog;
@@ -27,10 +26,12 @@ public class AppController {
     @ResponseBody
     public PetInterface helloPage(Model model) {
         model.addAttribute("name", "World");
-        if(petInterface instanceof Cat)
-        petInterface.setName("Barsik");
-        if(petInterface instanceof Dog)
-        petInterface.setName("Muhtar");
+        if (petInterface instanceof Cat) {
+            petInterface.setName("Barsik");
+        }
+        if (petInterface instanceof Dog) {
+            petInterface.setName("Muhtar");
+        }
         return petInterface;
     }
 
@@ -52,25 +53,25 @@ public class AppController {
 
     @RequestMapping("/create")
     @ResponseBody
-    public String createTable(){
+    public String createTable() {
         return createTable.createTableStatus();
     }
 
     @RequestMapping("/read")
     @ResponseBody
-    public String selectFromTable(){
+    public String selectFromTable() {
         return createTable.read(1);
     }
 
     @RequestMapping("/update")
     @ResponseBody
-    public String insertEntry(){
+    public String insertEntry() {
         return createTable.update();
     }
 
     @RequestMapping("/delete")
     @ResponseBody
-    public String deleteEntry(){
+    public String deleteEntry() {
         return createTable.delete();
     }
 
