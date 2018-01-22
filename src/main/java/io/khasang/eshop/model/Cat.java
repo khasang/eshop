@@ -11,6 +11,7 @@ import javax.annotation.PreDestroy;
 @Scope("prototype")
 public class Cat implements CatInterface {
     private String name;
+    private String description;
 
     public Cat() {
     }
@@ -27,13 +28,21 @@ public class Cat implements CatInterface {
     public void setName(String name) {
         this.name = name;
     }
+//////
+    public String getDescription() {return description;}
+
+    public void setDescription(String description) {
+         this.description = description;
+    }
+ //////
+
     @PostConstruct
     public void setName(){
         name = "Jack";
     }
     @PreDestroy
     public void clean(){
-        name = "Кот";
+        name = "";
     }
 }
 
