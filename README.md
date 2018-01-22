@@ -11,7 +11,7 @@
     } 
    }
 ```
-[Обычная ссылка в строке](https://www.coogle.com) 
+[Обычная ссылка в строке](https://www.google.com) 
 * Menu
     * Submenu
 * Menu
