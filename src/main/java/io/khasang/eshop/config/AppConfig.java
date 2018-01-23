@@ -1,6 +1,5 @@
 package io.khasang.eshop.config;
-import io.khasang.eshop.model.Cat;
-import io.khasang.eshop.model.CreateTable;
+import io.khasang.eshop.model.CrudOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,10 +45,9 @@ public class AppConfig {
     }
 
     @Bean
-    public CreateTable createTable() {
-        return new CreateTable(jdbcTemplate());
+    public CrudOperations createTable() {
+        return new CrudOperations(jdbcTemplate());
     }
-
 
    /* @Bean
     public Cat cat() {

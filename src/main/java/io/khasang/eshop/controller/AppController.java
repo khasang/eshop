@@ -1,8 +1,5 @@
 package io.khasang.eshop.controller;
-import io.khasang.eshop.model.Cat;
-import io.khasang.eshop.model.CreateTable;
-import io.khasang.eshop.model.Dog;
-import io.khasang.eshop.model.PetInterface;
+import io.khasang.eshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +17,7 @@ public class AppController {
     private PetInterface petInterface;
 
     @Autowired
-    private CreateTable createTable;
+    private CrudOperations crudOperations;
 
     @RequestMapping("/")
     @ResponseBody
@@ -54,25 +51,25 @@ public class AppController {
     @RequestMapping("/create")
     @ResponseBody
     public String createTable() {
-        return createTable.createTableStatus();
+        return crudOperations.createTableStatus();
     }
 
     @RequestMapping("/read")
     @ResponseBody
     public String selectFromTable() {
-        return createTable.read(1);
+        return crudOperations.read(1);
     }
 
     @RequestMapping("/update")
     @ResponseBody
     public String insertEntry() {
-        return createTable.update();
+        return crudOperations.update();
     }
 
     @RequestMapping("/delete")
     @ResponseBody
     public String deleteEntry() {
-        return createTable.delete();
+        return crudOperations.delete();
     }
 
 }

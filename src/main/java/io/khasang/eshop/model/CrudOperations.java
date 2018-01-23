@@ -7,15 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Transactional
-public class CreateTable {
+public class CrudOperations {
 
     private JdbcTemplate jdbcTemplate;
 
-    public CreateTable(JdbcTemplate jdbcTemplate) {
+    public CrudOperations(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public CreateTable() {
+    public CrudOperations() {
     }
 
     public String createTableStatus() {
