@@ -9,11 +9,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 import javax.activation.DataSource;
 
 @Configuration
 @PropertySource(value = "classpath:util.properties")
+@PropertySource(value = "classpath:auth.properties")
 public class AppConfig {
 
     //Что бы в данном классе можно было взаимодействовать с util.prperties
@@ -37,6 +40,16 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
+    }
+
+    //Подключения к базе, запрос существует ли пользователь, запрос какая у него роль
+    @Bean
+    public UserDetailsService userDetailsService(){
+        JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
+        jdbcDao.setDataSource(dataSource());
+        jdbcDao.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
+        jdbcDao.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
+        return jdbcDao;
     }
 
     @Bean
