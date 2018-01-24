@@ -3,7 +3,7 @@ package io.khasang.eshop.config;
 import io.khasang.eshop.config.application.WebConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-// web.xml
+//web.xml
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {

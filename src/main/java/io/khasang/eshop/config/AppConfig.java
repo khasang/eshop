@@ -15,15 +15,16 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import javax.activation.DataSource;
 
 @Configuration
+//Настраиваем сввязь класса с файлом properties
 @PropertySource(value = "classpath:util.properties")
 @PropertySource(value = "classpath:auth.properties")
 public class AppConfig {
 
-    //Что бы в данном классе можно было взаимодействовать с util.prperties
+    //Что бы в данном классе можно было взаимодействовать с util.properties
     @Autowired
     private Environment environment;
 
-    //Устанавливаем настройки из вайла util
+    //Устанавливаем настройки из файла util
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -42,13 +43,15 @@ public class AppConfig {
         return jdbcTemplate;
     }
 
-    //Подключения к базе, запрос существует ли пользователь, запрос какая у него роль
+    //Фактически аналог JdbcTemplate, только заточенный под Security
     @Bean
     public UserDetailsService userDetailsService(){
         JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
         jdbcDao.setDataSource(dataSource());
+        //получения UserName, Password, так же false или true, есть ли такой пользователь или нет
         jdbcDao.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));
-        jdbcDao.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesByQuery"));
+        //авторизация по UserName, получаем роль пользователя
+        jdbcDao.setAuthoritiesByUsernameQuery(environment.getRequiredProperty("rolesBryQuery"));
         return jdbcDao;
     }
 

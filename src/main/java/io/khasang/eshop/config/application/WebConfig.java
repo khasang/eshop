@@ -8,12 +8,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
-// spring-dispatcher-servlet.xml
+//spring-dispatcher-servlet.xml
 @Configuration
+//Вкл. WebMVS Spring FrameWork
 @EnableWebMvc
+//Указываем где в каком каталоге будет осуществляться поиск компонентов нашего проекта
 @ComponentScan({"io.khasang.eshop"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+    //Передаем метод в облако бинов, настраиваем WebMvc
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

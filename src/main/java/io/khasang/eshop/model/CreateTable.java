@@ -4,13 +4,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 /** Этот класс помечен как @Transactional, что означает откат всех
- * записей к предыдущему значению, если любая из операций в этом методе завершится неудачей,
+ * записей к предыдущему значению, если любая из операций в этом методе завершится неудачей(все RunTimeException),
  * а также повторно бросит оригинальное исключение.
  */
-
 @Transactional
 public class CreateTable {
-
     private JdbcTemplate jdbcTemplate;
 
     public CreateTable(JdbcTemplate jdbcTemplate){
@@ -75,7 +73,8 @@ public class CreateTable {
 
     public String updateCats(){
         try{
-            jdbcTemplate.execute("UPDATE cats SET name = 'Kapa', color_id = 2 WHERE name = 'Kapapap'");
+            jdbcTemplate.execute("UPDATE cats SET name = 'Kapa', color_id = 2 " +
+                    "WHERE name = 'Kapapap'");
             return "Cats Update";
         } catch(Exception e){
             return "Cats Not Update";
@@ -103,7 +102,8 @@ public class CreateTable {
 
     public String selectCats1(){
         try {
-            jdbcTemplate.execute("SELECT name, description, CASE WHEN name = 'Kapa' THEN 'my cat' else '' END FROM cats");
+            jdbcTemplate.execute("SELECT name, description, CASE WHEN name = 'Kapa'" +
+                    " THEN 'my cat' else '' END FROM cats");
             return "Select Complete";
         } catch(Exception e){
             return "Select NoT Complete";

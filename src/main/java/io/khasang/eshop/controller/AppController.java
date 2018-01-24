@@ -13,48 +13,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AppController {
-
+    //Делаем автосвязку с объектом который находится в облаке бинов
     @Autowired
     private Cat catInterface;
 
     @Autowired
     private CreateTable createTable;
 
-    // http://localhost:8080/
     @RequestMapping("/")
+    public String startPage(){
+        return "hello";
+    }
+    //Указываем путь страницы, в данном случае http://localhost:8080/
+    @RequestMapping("/cat")
     @ResponseBody
-    public Cat halloPage(Model model) {
-//        model.addAttribute("name", "World");
+    public Cat CatPage() {
         return catInterface;
     }
 
     //запускаем методы после перехода по ссылке
-    @RequestMapping("/create")
+    @RequestMapping("/admin/create")
     @ResponseBody
     public String createTable(){
-        return createTable.createTableCats() + " " +
-                createTable.createTableColors() + " " +
-                createTable.addCatsInTable() + " " +
-                createTable.addColorsInTable() + " " +
-                createTable.updateCats() + " " +
-                createTable.deletCats() + " " +
-                createTable.selectCats() + " " +
+        return createTable.createTableCats() + " | " +
+                createTable.createTableColors() + " | " +
+                createTable.addCatsInTable() + " | " +
+                createTable.addColorsInTable() + " | " +
+                createTable.updateCats() + " | " +
+                createTable.deletCats() + " | " +
+                createTable.selectCats() + " | " +
                 createTable.selectCats1();
     }
 
-    @RequestMapping("/admin/page")
+    @RequestMapping("/admin")
     public String getSecurePage(){
         return "admin";
     }
 
-    @RequestMapping("/user/**")
+    @RequestMapping("user/**")
     public String getUserPage(){
         return "user";
     }
-
-    //шифруем папрот по параметру из ссылки
+    //разобрать
     @ResponseBody
-    @RequestMapping(value = "/password/{password}", method = RequestMethod.GET)
+    @RequestMapping(value = ("/password/{password}"), method = RequestMethod.GET)
     public String getEncryptedPassword(@PathVariable("password") String password){
         return new BCryptPasswordEncoder().encode(password);
     }
