@@ -3,15 +3,23 @@ package io.khasang.eshop.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cats")
-public class Cat {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @Column(name = "book_id")
     private long id;
 
     private String name;
     private String description;
+    private String isdn;
+
+    public String getIsdn() {
+        return isdn;
+    }
+
+    public void setIsdn(String isdn) {
+        this.isdn = isdn;
+    }
 
     public long getId() {
         return id;

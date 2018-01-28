@@ -1,5 +1,8 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.BookDao;
+import io.khasang.eshop.dao.impl.BookDaoImpl;
+import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +13,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+
+import java.util.List;
 
 @Configuration
 @PropertySource(value = "classpath:util.properties")
@@ -42,6 +47,11 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
+    }
+
+    @Bean
+    public BookDao bookDao() {
+        return new BookDaoImpl(Book.class);
     }
 
     @Bean

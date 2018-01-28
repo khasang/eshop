@@ -16,6 +16,7 @@
         <javax.version>3.0.1</javax.version>
         <postgresql.version>9.4.1212.jre7</postgresql.version>
         <hibernate.version>5.2.12.Final</hibernate.version>
+        <jackson.version>2.7.8</jackson.version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,18 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>${javax.version}</version>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!--postgresql-->
