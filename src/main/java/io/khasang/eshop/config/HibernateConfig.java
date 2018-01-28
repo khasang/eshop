@@ -23,7 +23,7 @@ public class HibernateConfig {
     @Autowired
     private Environment environment;
 
-    //Устанавливаем настройки из файла util для hibernate
+    //Устанавливаем настройки из файла hibernate.properties для hibernate
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
