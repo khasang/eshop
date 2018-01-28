@@ -54,6 +54,7 @@ public class AppController {
     public String getUserPage(){
         return "user";
     }
+
     //разобрать
     @ResponseBody
     @RequestMapping(value = ("/password/{password}"), method = RequestMethod.GET)
