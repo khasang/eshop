@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
-//spring-dispatcher-servlet.xml
+//spring-dispatcher-servlet.xml аналах настройки в xml файла
 @Configuration
 //Вкл. WebMVS Spring FrameWork
 @EnableWebMvc
