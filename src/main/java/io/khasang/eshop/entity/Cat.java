@@ -12,8 +12,6 @@ public class Cat {
 
     private String name;
     private String description;
-    @Transient
-    private String additional;
 
     public String getDescription() {
         return description;
@@ -21,14 +19,6 @@ public class Cat {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAdditional() {
-        return additional;
-    }
-
-    public void setAdditional(String additional) {
-        this.additional = additional;
     }
 
     public String getName() {

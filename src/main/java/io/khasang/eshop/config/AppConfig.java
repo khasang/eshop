@@ -1,6 +1,8 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.model.Cat;
+import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,8 +48,8 @@ public class AppConfig {
     }
 
     @Bean
-    public Cat cat(){
-        return new Cat();
+    public CatDao catDao(){
+        return new CatDaoImpl(Cat.class);
     }
 
     @Bean
