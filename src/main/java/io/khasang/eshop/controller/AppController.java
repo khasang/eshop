@@ -21,9 +21,10 @@ public class AppController {
     private CreateTable createTable;
 
     @RequestMapping("/")
-    public String startPage(){
+    public String startPage() {
         return "hello";
     }
+
     //Указываем путь страницы, в данном случае http://localhost:8080/
     @RequestMapping("/cat")
     @ResponseBody
@@ -34,31 +35,31 @@ public class AppController {
     //запускаем методы после перехода по ссылке
     @RequestMapping("/admin/create")
     @ResponseBody
-    public String createTable(){
-        return createTable.createTableCats() + " | " +
+    public String createTable() {
+        return createTable.createTableCat() + " | " +
                 createTable.createTableColors() + " | " +
                 createTable.addCatsInTable() + " | " +
                 createTable.addColorsInTable() + " | " +
                 createTable.updateCats() + " | " +
-                createTable.deletCats() + " | " +
+                createTable.deleteCats() + " | " +
                 createTable.selectCats() + " | " +
                 createTable.selectCats1();
     }
 
     @RequestMapping("/admin")
-    public String getSecurePage(){
+    public String getSecurePage() {
         return "admin";
     }
 
     @RequestMapping("user/**")
-    public String getUserPage(){
+    public String getUserPage() {
         return "user";
     }
 
     //разобрать
     @ResponseBody
     @RequestMapping(value = ("/password/{password}"), method = RequestMethod.GET)
-    public String getEncryptedPassword(@PathVariable("password") String password){
+    public String getEncryptedPassword(@PathVariable("password") String password) {
         return new BCryptPasswordEncoder().encode(password);
     }
 }

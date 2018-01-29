@@ -12,8 +12,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
-import javax.activation.DataSource;
-
 @Configuration
 //Настраиваем сввязь класса с файлом properties
 @PropertySource(value = "classpath:util.properties")
@@ -37,7 +35,7 @@ public class AppConfig {
 
     //Чрез данный медот создаем объект, через который будем общаться с сервером
     @Bean
-    public JdbcTemplate jdbcTemplate(){
+    public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
@@ -45,7 +43,7 @@ public class AppConfig {
 
     //Фактически аналог JdbcTemplate, только заточенный под Security
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
         jdbcDao.setDataSource(dataSource());
         //получения UserName, Password, так же false или true, есть ли такой пользователь или нет
@@ -62,7 +60,7 @@ public class AppConfig {
 
     //Добавляем класс с нашими запросами в облако Beans, передав ему объект для связи с сервером
     @Bean
-    public CreateTable createTable(){
+    public CreateTable createTable() {
         return new CreateTable(jdbcTemplate());
     }
 }
