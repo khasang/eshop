@@ -14,8 +14,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/book")
 public class BookController {
+    private final BookService bookService;
+
     @Autowired
-    BookService bookService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody

@@ -1,6 +1,5 @@
 package io.khasang.eshop.dao;
 
-import io.khasang.eshop.entity.Book;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 public interface BasicDao<T> {
     List<T> getList();
 
-    Session getSessionFactory();
+    Session getSession();
 
     T getById(long id);
 }

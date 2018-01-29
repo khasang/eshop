@@ -29,16 +29,16 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         CriteriaQuery<T> criteriaQuery = builder.createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(root);
-        return getSessionFactory().createQuery(criteriaQuery).list();
+        return getSession().createQuery(criteriaQuery).list();
     }
 
     @Override
-    public Session getSessionFactory() {
+    public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
     public T getById(long id) {
-        return getSessionFactory().get(entityClass, id);
+        return getSession().get(entityClass, id);
     }
 }
