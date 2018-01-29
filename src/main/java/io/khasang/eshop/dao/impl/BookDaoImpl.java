@@ -6,9 +6,10 @@ import io.khasang.eshop.entity.Book;
 import java.util.List;
 
 public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
-    private Class<Book> entityClass;
+    //private Class<Book> entityClass;
 
     public BookDaoImpl(Class<Book> entityClass) {
+        //this.entityClass = entityClass;
         super(entityClass);
     }
 

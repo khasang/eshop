@@ -36,4 +36,9 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     public Session getSessionFactory() {
         return sessionFactory.getCurrentSession();
     }
+
+    @Override
+    public T getById(long id) {
+        return getSessionFactory().get(entityClass, id);
+    }
 }

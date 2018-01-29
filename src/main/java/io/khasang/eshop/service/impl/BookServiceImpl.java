@@ -17,4 +17,9 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAllBooks() {
         return bookDao.getList();
     }
+
+    @Override
+    public Book getBookById(long id) {
+        return bookDao.getById(id);
+    }
 }
