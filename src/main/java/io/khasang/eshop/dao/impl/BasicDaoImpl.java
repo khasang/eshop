@@ -41,4 +41,22 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     public T getById(long id) {
         return getSession().get(entityClass, id);
     }
+
+    @Override
+    public T add(T entity) {
+        getSession().save(entity);
+        return entity;
+    }
+
+    @Override
+    public T delete(T entity) {
+        getSession().delete(entity);
+        return entity;
+    }
+
+    @Override
+    public T update(T entity) {
+        getSession().update(entity);
+        return entity;
+    }
 }
