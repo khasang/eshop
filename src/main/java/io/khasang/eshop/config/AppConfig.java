@@ -1,6 +1,11 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.model.Cat;
+import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.PhoneDao;
+import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.PhoneDaoImpl;
+import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.Phone;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -54,8 +59,13 @@ public class AppConfig {
     }
 
     @Bean
-    public Cat cat() {
-        return new Cat("Murzik");
+    public CatDao catDao(){
+        return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public PhoneDao phoneDao(){
+        return new PhoneDaoImpl(Phone.class);
     }
 
     //Добавляем класс с нашими запросами в облако Beans, передав ему объект для связи с сервером
