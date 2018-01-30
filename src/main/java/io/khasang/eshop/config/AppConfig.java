@@ -1,6 +1,11 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.model.Cat;
+import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.PhoneDao;
+import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.PhoneDaoImpl;
+import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.Phone;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +16,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
-
-import javax.activation.DataSource;
 
 @Configuration
 //Настраиваем сввязь класса с файлом properties
@@ -37,7 +40,7 @@ public class AppConfig {
 
     //Чрез данный медот создаем объект, через который будем общаться с сервером
     @Bean
-    public JdbcTemplate jdbcTemplate(){
+    public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
@@ -45,7 +48,7 @@ public class AppConfig {
 
     //Фактически аналог JdbcTemplate, только заточенный под Security
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         JdbcDaoImpl jdbcDao = new JdbcDaoImpl();
         jdbcDao.setDataSource(dataSource());
         //получения UserName, Password, так же false или true, есть ли такой пользователь или нет
@@ -56,13 +59,18 @@ public class AppConfig {
     }
 
     @Bean
-    public Cat cat() {
-        return new Cat("Murzik");
+    public CatDao catDao(){
+        return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public PhoneDao phoneDao(){
+        return new PhoneDaoImpl(Phone.class);
     }
 
     //Добавляем класс с нашими запросами в облако Beans, передав ему объект для связи с сервером
     @Bean
-    public CreateTable createTable(){
+    public CreateTable createTable() {
         return new CreateTable(jdbcTemplate());
     }
 }

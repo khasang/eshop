@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
+
     //Настрока HttpSecurity, настройки авторизации, по каким путям кто будет иметь доступ
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -38,11 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //8 byte SHA1
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception{
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    private PasswordEncoder passwordEncoder(){
+    private PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
