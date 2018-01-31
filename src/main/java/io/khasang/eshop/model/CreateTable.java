@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Transactional
+
 public class CreateTable {
     private JdbcTemplate jdbcTemplate;
 
@@ -69,21 +69,20 @@ public class CreateTable {
         }
     }
 
-    public List createInquiryStatus1() {
-
-        List<Cat> cats = this.jdbcTemplate.query(
-                "select description, name from cat",
-                new RowMapper<Cat>() {
-                    public Cat mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        Cat cat = new Cat();
-                        cat.setName(rs.getString("name"));
-                        cat.setDescription(rs.getString("description"));
-                        return cat;
-                    }
-                });
-        return cats;
-
-    }
-
+//    public List createInquiryStatus1() {
+//
+//        List<Cat> cats = this.jdbcTemplate.query(
+//                "select description, name from cat",
+//                new RowMapper<Cat>() {
+//                    public Cat mapRow(ResultSet rs, int rowNum) throws SQLException {
+//                        Cat cat = new Cat();
+//                        cat.setName(rs.getString("name"));
+//                        cat.setDescription(rs.getString("description"));
+//                        return cat;
+//                    }
+//                });
+//        return cats;
+//
+//    }
 
 }

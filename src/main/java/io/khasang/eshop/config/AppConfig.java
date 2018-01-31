@@ -1,6 +1,11 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.model.Cat;
+import io.khasang.eshop.dao.BookDao;
+import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.impl.BookDaoIml;
+import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.entity.Book;
+import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -47,13 +52,19 @@ public class AppConfig {
     }
 
     @Bean
-    public Cat cat(){
-      return new Cat();
+    public CatDao catDao(){
+        return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public BookDao bookDao(){
+        return new BookDaoIml(Book.class);
     }
 
     @Bean
     public CreateTable createTable(){
-        return  new CreateTable(JdbcTemplate());
+        return new CreateTable(JdbcTemplate());
 
     }
+
 }
