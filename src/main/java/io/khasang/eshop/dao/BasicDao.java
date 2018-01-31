@@ -14,9 +14,34 @@ public interface BasicDao<T> {
 
     /**
      * get current Hibernate session
+     *
      * @return current Hibernate session
      */
     T getById(long id);
 
     Session getSession();
+
+    /**
+     * method for add entity
+     *
+     * @param entity = new entity
+     * @return created entity
+     */
+    T add(T entity);
+
+    /**
+     * method for delete specify entity
+     *
+     * @param entity = entity for delete
+     * @return entity
+     */
+    T delete(T entity);
+
+    /**
+     * method for update specify entity
+     *
+     * @param entity = entity for update
+     * @return update entity
+     */
+    T update(T entity);
 }

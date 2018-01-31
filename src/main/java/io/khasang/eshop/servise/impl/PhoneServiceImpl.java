@@ -25,4 +25,19 @@ public class PhoneServiceImpl implements PhoneService{
     public Phone getById(long id) {
         return phoneDao.getById(id);
     }
+
+    @Override
+    public Phone addPhone(Phone phone) {
+        return phoneDao.add(phone);
+    }
+
+    @Override
+    public Phone deletePhone(long id) {
+        return phoneDao.delete(getById(id));
+    }
+
+    @Override
+    public Phone updatePhone(Phone phone) {
+        return phoneDao.update(phone);
+    }
 }
