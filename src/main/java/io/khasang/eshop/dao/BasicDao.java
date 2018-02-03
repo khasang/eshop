@@ -36,4 +36,12 @@ public interface BasicDao<T> {
      * @return entity
      */
     T delete(T entity);
+
+    /**
+     * method for update entity
+     *
+     * @param entity = updated entity
+     * @return updated entity
+     */
+    T update(T entity);
 }

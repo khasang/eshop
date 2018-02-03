@@ -29,6 +29,16 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
+    public Cat patchCat(Cat cat) {
+        return catDao.update(cat);
+    }
+
+    @Override
+    public Cat updateCat(Cat cat) {
+        return catDao.update(cat);
+    }
+
+    @Override
     public Cat delete(long id) {
         return catDao.delete(getById(id));
     }
