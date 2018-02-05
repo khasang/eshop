@@ -16,6 +16,7 @@
         <javax.version>3.0.1</javax.version>
         <jackson.version>2.7.8</jackson.version>
         <postgre.version>9.4.1212.jre7</postgre.version>
+        <junit.version>4.12</junit.version>
 
 
         <hibernate.version>5.2.12.Final</hibernate.version>
@@ -115,6 +116,15 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
+
+        <!-- Junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+
 
     </dependencies>
 

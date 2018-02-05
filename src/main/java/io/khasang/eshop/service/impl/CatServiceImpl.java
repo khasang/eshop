@@ -29,12 +29,17 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Cat delete(long id) {
+    public Cat deleteCat(long id) {
         return catDao.delete(getById(id));
     }
 
     @Override
-    public Cat update(Cat cat) {
+    public Cat updateCat(Cat cat) {
+        return catDao.update(cat);
+    }
+
+    @Override
+    public Cat patchCat(Cat cat) {
         return catDao.update(cat);
     }
 }

@@ -31,7 +31,7 @@ public class BookController {
     public Book getBookById(@PathVariable(value = "id")String id){
          return bookService.getById(Long.parseLong(id));
     }
-    @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public Book addBook(@RequestBody Book book){
         return bookService.addBook(book);
@@ -41,7 +41,7 @@ public class BookController {
     public Book deleteBook(@RequestParam(value = "id")String id){
         return bookService.delete(Long.parseLong(id));
     }
-    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
     @ResponseBody
     public Book updateBook(@RequestBody Book book){
         return bookService.update(book);

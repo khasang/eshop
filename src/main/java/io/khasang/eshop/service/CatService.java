@@ -37,7 +37,7 @@ public interface CatService {
      * @param id = cat's id
      * @return cat by id
      **/
-    Cat delete(long id);
+    Cat deleteCat(long id);
 
     /**
      * method for update specify cat by id
@@ -45,5 +45,7 @@ public interface CatService {
      * @param cat = new cat
      * @return updated cat
      **/
-    Cat update(Cat cat);
+    Cat updateCat(Cat cat);
+
+    Cat patchCat(Cat cat);
 }
