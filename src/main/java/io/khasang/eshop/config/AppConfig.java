@@ -1,4 +1,13 @@
 package io.khasang.eshop.config;
+import io.khasang.eshop.dao.BookDao;
+import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.CustomerDao;
+import io.khasang.eshop.dao.impl.BookDaoImpl;
+import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.CustomerDaoImpl;
+import io.khasang.eshop.entity.Book;
+import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.Customer;
 import io.khasang.eshop.model.CrudOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,12 +54,25 @@ public class AppConfig {
     }
 
     @Bean
+    public CatDao catDao(){
+        return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public CustomerDao customerDao(){
+        return new CustomerDaoImpl(Customer.class);
+    }
+
+    @Bean
+    public BookDao bookDao(){
+        return new BookDaoImpl(Book.class);
+    }
+
+    @Bean
     public CrudOperations createTable() {
         return new CrudOperations(jdbcTemplate());
     }
 
-   /* @Bean
-    public Cat cat() {
-        return new Cat("Murzik");
-    }*/
+
+
 }
