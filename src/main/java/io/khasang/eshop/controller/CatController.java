@@ -31,7 +31,7 @@ public class CatController {
         return catService.getById(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public Cat addCatById(@RequestBody Cat cat) {
         return catService.addCat(cat);
@@ -43,7 +43,7 @@ public class CatController {
         return catService.delete(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     @ResponseBody
     public Cat updateCat(@RequestBody Cat cat) {
         return catService.updateCat(cat);

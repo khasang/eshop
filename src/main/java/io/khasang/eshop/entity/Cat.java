@@ -1,6 +1,7 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Cats")
@@ -13,16 +14,8 @@ public class Cat {
     private String name;
     private String description;
 
-    @Transient
-    private String additionnal;
-
-    public String getAdditionnal() {
-        return additionnal;
-    }
-
-    public void setAdditionnal(String aditionnal) {
-        this.additionnal = aditionnal;
-    }
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
     public long getId() {
         return id;
@@ -46,5 +39,13 @@ public class Cat {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

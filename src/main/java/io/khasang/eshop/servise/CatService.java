@@ -39,8 +39,8 @@ public interface CatService {
     /**
      * method for update specify cat
      *
-     * @param cat = cat's id
-     * @return update cat
+     * @param cat = updated cat
+     * @return updated cat
      */
     Cat updateCat(Cat cat);
 }

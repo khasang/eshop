@@ -40,8 +40,8 @@ public interface BasicDao<T> {
     /**
      * method for update specify entity
      *
-     * @param entity = entity for update
-     * @return update entity
+     * @param entity = updated entity
+     * @return updated entity
      */
     T update(T entity);
 }
