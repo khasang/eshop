@@ -1,8 +1,11 @@
 package io.khasang.eshop.config;
 
 import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.GoodDao;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.GoodDaoImpl;
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.Good;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -50,6 +53,11 @@ public class AppConfig {
     @Bean
     public CatDao catDao(){
         return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public GoodDao goodDao(){
+        return new GoodDaoImpl(Good.class);
     }
 
     @Bean
