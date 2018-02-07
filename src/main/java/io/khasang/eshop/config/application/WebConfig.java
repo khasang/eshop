@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-// spring-dispatcher-servlet.xml
+// spring-dispatcher-servlet
 @Configuration
 @EnableWebMvc
 @ComponentScan({"io.khasang.eshop"})
