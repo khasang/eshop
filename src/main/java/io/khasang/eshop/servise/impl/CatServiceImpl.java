@@ -22,4 +22,19 @@ public class CatServiceImpl implements CatService {
     public Cat getById(long id) {
         return catDao.getById(id);
     }
+
+    @Override
+    public Cat addCat(Cat cat) {
+        return catDao.add(cat);
+    }
+
+    @Override
+    public Cat delete(long id) {
+        return catDao.delete(getById(id));
+    }
+
+    @Override
+    public Cat updateCat(Cat cat) {
+        return catDao.update(cat);
+    }
 }

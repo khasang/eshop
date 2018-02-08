@@ -16,6 +16,14 @@ public class Cat {
     @Transient
     private String additionnal;
 
+    public String getAdditionnal() {
+        return additionnal;
+    }
+
+    public void setAdditionnal(String aditionnal) {
+        this.additionnal = aditionnal;
+    }
+
     public long getId() {
         return id;
     }
@@ -38,13 +46,5 @@ public class Cat {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAdditionnal() {
-        return additionnal;
-    }
-
-    public void setAdditionnal(String aditionnal) {
-        this.additionnal = aditionnal;
     }
 }

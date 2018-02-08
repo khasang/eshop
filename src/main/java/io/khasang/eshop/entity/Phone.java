@@ -9,11 +9,11 @@ import javax.persistence.Id;
 public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    String manufacturer;
-    String model;
-    String color;
+    private String manufacturer;
+    private String model;
+    private String color;
 
     public long getId() {
         return id;
