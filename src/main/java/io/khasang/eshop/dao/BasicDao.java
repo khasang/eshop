@@ -20,8 +20,6 @@ public interface BasicDao<T> {
      */
     Session getSession();
 
-    List<T> getGoodsByUser(String user);
-
     T getById(long id);
 
     /**

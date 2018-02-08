@@ -21,11 +21,15 @@ public interface BasketService {
      */
     Basket getById(long id);
 
-
+    /**
+     * method for receiving all Basket's by user name from DB
+     *
+     * @return List of all Basket's by user name
+     */
     List<Basket> getGoodsByUser(String user);
 
     /**
-     * method for add cat
+     * method for add basket
      *
      * @param basket = new Basket
      * @return created Basket
@@ -35,10 +39,10 @@ public interface BasketService {
     /**
      * method for delete specify cat by id
      *
-     * @param id = cat's id
-     * @return cat by id
+     * @param basket = basket
+     * @return List basket
      */
-    Basket delete(long id);
+    List<Basket> delete(Basket basket);
 
     /**
      * method for update cat

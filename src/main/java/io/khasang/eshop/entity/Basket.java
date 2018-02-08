@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     //Пользователь
     @Column(name = "users")
     private String user;
@@ -19,7 +19,7 @@ public class Basket {
     public Basket(){
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

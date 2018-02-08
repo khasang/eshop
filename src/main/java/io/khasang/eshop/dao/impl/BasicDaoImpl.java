@@ -39,12 +39,6 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         return sessionFactory.getCurrentSession();
     }
 
-    @Override
-    public List<T> getGoodsByUser(String user) {
-        Query query = getSession().createQuery("SELECT b FROM Basket as b WHERE b.user = :userName");
-        query.setParameter("userName", user);
-        return query.getResultList();
-    }
 
     @Override
     public T getById(long id) {

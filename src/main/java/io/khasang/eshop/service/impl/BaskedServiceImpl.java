@@ -35,8 +35,8 @@ public class BaskedServiceImpl implements BasketService {
     }
 
     @Override
-    public Basket delete(long id) {
-        return basketDao.delete(getById(id));
+    public List<Basket> delete(Basket basket) {
+        return basketDao.deleteByEntity(basket);
     }
 
     @Override
