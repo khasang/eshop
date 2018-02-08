@@ -21,6 +21,9 @@ public interface BasketService {
      */
     Basket getById(long id);
 
+
+    List<Basket> getGoodsByUser(String user);
+
     /**
      * method for add cat
      *

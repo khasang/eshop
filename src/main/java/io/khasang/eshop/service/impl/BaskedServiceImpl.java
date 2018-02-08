@@ -20,6 +20,11 @@ public class BaskedServiceImpl implements BasketService {
     }
 
     @Override
+    public List<Basket> getGoodsByUser(String user){
+        return basketDao.getGoodsByUser(user);
+    }
+
+    @Override
     public Basket getById(long id) {
         return basketDao.getById(id);
     }

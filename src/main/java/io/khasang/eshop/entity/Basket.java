@@ -1,20 +1,19 @@
 package io.khasang.eshop.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "basket")
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     //Пользователь
+    @Column(name = "users")
     private String user;
-    //sku товара либо id, по нему в дальнейшем будет устанавливать связь МногиеКоМногим
-    private int sku;
-    //Количество товаров
+    private String goods;
+
+    private int price;
     private int quantity;
 
     public Basket(){
@@ -36,12 +35,20 @@ public class Basket {
         this.user = user;
     }
 
-    public int getBasket() {
-        return sku;
+    public String getGoods() {
+        return goods;
     }
 
-    public void setBasket(int sku) {
-        this.sku = sku;
+    public void setGoods(String goods) {
+        this.goods = goods;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public int getQuantity() {

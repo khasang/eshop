@@ -6,14 +6,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class BasicDaoImpl<T> implements BasicDao<T> {
-    private final Class<T> entityClass;
+    protected final Class<T> entityClass;
 
     @Autowired
     protected SessionFactory sessionFactory;
@@ -35,6 +37,13 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     @Override
     public Session getSession() {
         return sessionFactory.getCurrentSession();
+    }
+
+    @Override
+    public List<T> getGoodsByUser(String user) {
+        Query query = getSession().createQuery("SELECT b FROM Basket as b WHERE b.user = :userName");
+        query.setParameter("userName", user);
+        return query.getResultList();
     }
 
     @Override

@@ -3,6 +3,7 @@ package io.khasang.eshop.dao;
 import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BasicDao<T> {
     /**
@@ -18,6 +19,8 @@ public interface BasicDao<T> {
      * @return current hibernate session
      */
     Session getSession();
+
+    List<T> getGoodsByUser(String user);
 
     T getById(long id);
 

@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping("/basket")
 public class BasketController {
 
     private final BasketService basketService;
@@ -22,25 +22,25 @@ public class BasketController {
     @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     public void addBasket(@RequestBody Basket basket){
         basketService.addBasket(basket);
-        getAllBasket();
+        getAllBasket(basket.getUser());
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/basket/{user}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Basket> getAllBasket(){
-        return basketService.getAllBasket();
+    public List<Basket> getAllBasket(@PathVariable(value = "user") String user){
+        return basketService.getGoodsByUser(user);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     public void deleteBasket(@RequestParam(value = "{id}") String id){
         basketService.delete(Long.parseLong(id));
-        getAllBasket();
+//        getAllBasket();
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     public void updateBasket(@RequestBody Basket basket){
         basketService.updateBasket(basket);
-        getAllBasket();
+        getAllBasket(basket.getUser());
     }
 
 
