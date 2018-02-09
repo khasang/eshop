@@ -7,48 +7,33 @@ import java.util.List;
 public interface BasketService {
 
     /**
-     * method for receiving all Basket's from DB
-     *
-     * @return List of all Basket's
-     */
-    List<Basket> getAllBasket();
-
-    /**
-     * method for receiving specify Basket by id
-     *
-     * @param id = Basket's id
-     * @return Basket by id
-     */
-    Basket getById(long id);
-
-    /**
-     * method for receiving all Basket's by user name from DB
-     *
-     * @return List of all Basket's by user name
+     * method for receiving all goods by user name from DB
+     *@param user = name user's
+     * @return List of all goods by user name
      */
     List<Basket> getGoodsByUser(String user);
 
     /**
-     * method for add basket
+     * method for add product
      *
-     * @param basket = new Basket
+     * @param product = new product in Basket
      * @return created Basket
      */
-    Basket addBasket(Basket basket);
+    Basket addBasket(Basket product);
 
     /**
-     * method for delete specify cat by id
+     * method for delete specify product by id
      *
-     * @param basket = basket
-     * @return List basket
+     * @param product = product in Basket
+     * @return List goods in Basket
      */
-    List<Basket> delete(Basket basket);
+    List<Basket> delete(Basket product);
 
     /**
-     * method for update cat
+     * method for update product in Basket
      *
-     * @param cat = updated cat
-     * @return updated cat
+     * @param product = updated product
+     * @return updated product
      */
-    Basket updateBasket(Basket cat);
+    Basket updateBasket(Basket product);
 }

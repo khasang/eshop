@@ -7,14 +7,19 @@ import java.util.List;
 
 public interface BasketDao extends BasicDao<Basket> {
 
+    /**
+     * method for receiving all goods by user name from DB
+     *@param user = name user's
+     * @return List of all goods by user name
+     */
     List<Basket> getGoodsByUser(String user);
 
     /**
-     * method for delete specify basket
+     * method for delete specify product in Basket
      *
-     * @param basket = entity for delete
-     * @return List basket
+     * @param product = product for delete
+     * @return List goods in Basket
      */
-    List<Basket> deleteByEntity(Basket basket);
+    List<Basket> deleteByProduct(Basket product);
 
 }

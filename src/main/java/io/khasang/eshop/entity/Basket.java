@@ -23,7 +23,7 @@ public class Basket {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,5 +57,9 @@ public class Basket {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean equals(Basket product) {
+        return getGoods().equals(product.getGoods()) && getUser().equals(product.getUser());
     }
 }

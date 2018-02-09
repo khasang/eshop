@@ -12,9 +12,10 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
     }
 
     /**
-     * Method of obtaining the user's basket
+     * Method of obtaining the user's product
+     *
      * @param user whose basket we will receive
-     * @return entire user cart
+     * @return list of goods of the users
      */
     @Override
     public List<Basket> getGoodsByUser(String user) {
@@ -24,35 +25,36 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
     }
 
     /**
-     * Delete basket
-     * @param basket = basket for delete
-     * @return topical list baskets
+     * Delete product in basket
+     *
+     * @param product product than we remove from the basket
+     * @return topical list goods
      */
-    public List<Basket> deleteByEntity(Basket basket){
-        getSession().remove(basket);
-        return getGoodsByUser(basket.getUser());
+    public List<Basket> deleteByProduct(Basket product) {
+        getSession().remove(product);
+        return getGoodsByUser(product.getUser());
     }
 
     /**
-     * Add new basket
-     * @param entity = new basket
-     * @return new basket
+     * Add new product
+     * If the product is in the basket, update its quantity,
+     * if not add new ones.
+     *
+     * @param product = new product
+     * @return new product or update product
      */
     @Override
-    public Basket add(Basket entity) {
-         Basket basket = getSession().createQuery("SELECT b FROM Basket b where goods = :goods and user = :userName", entityClass)
-                 .setParameter("userName", entity.getUser())
-                 .setParameter("goods", entity.getGoods())
-                 .getSingleResult();
-
-        if (basket == null){
-            basket.setQuantity(basket.getQuantity() + entity.getQuantity());
-            getSession().update(basket);
-            return basket;
-        } else {
-            getSession().save(entity);
+    public Basket add(Basket product) {
+        List<Basket> basket = getGoodsByUser(product.getUser());
+        for (Basket productInBasket : basket) {
+            if (productInBasket.equals(product)) {
+                productInBasket.setQuantity(productInBasket.getQuantity() + product.getQuantity());
+                update(productInBasket);
+                return productInBasket;
+            }
         }
-            return entity;
+        getSession().save(product);
+        return product;
     }
 
 }

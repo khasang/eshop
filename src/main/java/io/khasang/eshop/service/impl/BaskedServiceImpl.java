@@ -15,32 +15,22 @@ public class BaskedServiceImpl implements BasketService {
      public BasketDao basketDao;
 
     @Override
-    public List<Basket> getAllBasket() {
-        return basketDao.getList();
-    }
-
-    @Override
     public List<Basket> getGoodsByUser(String user){
         return basketDao.getGoodsByUser(user);
     }
 
     @Override
-    public Basket getById(long id) {
-        return basketDao.getById(id);
+    public Basket addBasket(Basket product) {
+        return basketDao.add(product);
     }
 
     @Override
-    public Basket addBasket(Basket basket) {
-        return basketDao.add(basket);
+    public List<Basket> delete(Basket product) {
+        return basketDao.deleteByProduct(product);
     }
 
     @Override
-    public List<Basket> delete(Basket basket) {
-        return basketDao.deleteByEntity(basket);
-    }
-
-    @Override
-    public Basket updateBasket(Basket basket) {
-        return basketDao.update(basket);
+    public Basket updateBasket(Basket product) {
+        return basketDao.update(product);
     }
 }
