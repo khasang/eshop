@@ -1,8 +1,12 @@
 package io.khasang.eshop.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(region = "catCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "cats")
 public class Cat {
     @Id
