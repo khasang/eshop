@@ -1,6 +1,5 @@
 package io.khasang.eshop.controller;
 
-
 import io.khasang.eshop.entity.Employee;
 import io.khasang.eshop.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/employee")
-// localhost:8080/employee/**
+
 public class EmployeeController {
     private final EmployeeService employeeService;
 

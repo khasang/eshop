@@ -27,6 +27,16 @@ public class EmployeeControllerIntegrationTest {
         System.out.println("Global init");
     }
 
+    @After
+    public void clean(){
+        System.out.println("Clean");
+    }
+
+    @AfterClass
+    public static void globalClean(){
+        System.out.println("Global Clean");
+    }
+
     @Test
     public void addEmployee(){
         Employee employee = createdEmployee();
@@ -65,65 +75,6 @@ public class EmployeeControllerIntegrationTest {
         assertNotNull(receivedBook);
         assertEquals(employee.getId(), receivedBook.getId());
         assertNotNull(receivedBook.getFunctions());
-
-    }
-
-    private Employee createdEmployee() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        Employee employee = prefillEmployee("Employee");
-
-        HttpEntity<Employee> httpEntity = new HttpEntity<>(employee, headers);
-        RestTemplate template = new RestTemplate();
-
-        Employee createdEmployee = template.exchange(
-                ROOT + ADD,
-                HttpMethod.POST,
-                httpEntity,
-                Employee.class
-        ).getBody();
-        assertNotNull(createdEmployee);
-        assertEquals(createdEmployee.getName(), createdEmployee.getName());
-        return createdEmployee;
-    }
-
-    private Employee updatedEmployee() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        Employee employee = prefillEmployee1("Employee1");
-        HttpEntity<Employee> httpEntity = new HttpEntity<>(employee, headers);
-        RestTemplate template = new RestTemplate();
-
-        Employee updatedEmployee = template.exchange(
-                ROOT + UPDATE,
-                HttpMethod.PUT,
-                httpEntity,
-                Employee.class
-
-        ).getBody();
-
-        assertNotNull(updatedEmployee);
-        assertEquals(employee.getName(), updatedEmployee.getName());
-
-        return updatedEmployee;
-
-    }
-
-    private Employee prefillEmployee(String employee_name) {
-        Employee employee = new Employee();
-        employee.setName(employee_name);
-        employee.setFunctions("manager");
-        return  employee;
-    }
-
-    private Employee prefillEmployee1(String employee_name1) {
-        Employee employee = new Employee();
-        employee.setId(4);
-        employee.setName(employee_name1);
-        employee.setFunctions("manager1");
-        return  employee;
     }
 
     @Test
@@ -170,14 +121,60 @@ public class EmployeeControllerIntegrationTest {
         assertNull(responseForDeleteEmployee.getBody());
     }
 
-    @After
-    public void clean(){
-        System.out.println("Clean");
+    private Employee createdEmployee() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        Employee employee = prefillEmployee("Employee");
+
+        HttpEntity<Employee> httpEntity = new HttpEntity<>(employee, headers);
+        RestTemplate template = new RestTemplate();
+
+        Employee createdEmployee = template.exchange(
+                ROOT + ADD,
+                HttpMethod.POST,
+                httpEntity,
+                Employee.class
+        ).getBody();
+        assertNotNull(createdEmployee);
+        assertEquals(createdEmployee.getName(), createdEmployee.getName());
+        return createdEmployee;
     }
 
-    @AfterClass
-    public static void globalClean(){
-        System.out.println("Global Clean");
+    private Employee updatedEmployee() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        Employee employee = prefillEmployee1("Employee1");
+        HttpEntity<Employee> httpEntity = new HttpEntity<>(employee, headers);
+        RestTemplate template = new RestTemplate();
+
+        Employee updatedEmployee = template.exchange(
+                ROOT + UPDATE,
+                HttpMethod.PUT,
+                httpEntity,
+                Employee.class
+
+        ).getBody();
+
+        assertNotNull(updatedEmployee);
+        assertEquals(employee.getName(), updatedEmployee.getName());
+
+        return updatedEmployee;
     }
 
+    private Employee prefillEmployee(String employee_name) {
+        Employee employee = new Employee();
+        employee.setName(employee_name);
+        employee.setFunctions("manager");
+        return  employee;
+    }
+
+    private Employee prefillEmployee1(String employee_name1) {
+        Employee employee = new Employee();
+        employee.setId(4);
+        employee.setName(employee_name1);
+        employee.setFunctions("manager1");
+        return  employee;
+    }
 }
