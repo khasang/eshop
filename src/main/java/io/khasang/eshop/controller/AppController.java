@@ -21,12 +21,6 @@ public class AppController {
         return "OK!";
     }
 
-    @RequestMapping("/")
-    @ResponseBody
-    public String byPage() {
-        return "Buy!";
-    }
-
     @RequestMapping("/create")
     @ResponseBody
     public String createTable(){

@@ -1,8 +1,14 @@
 package io.khasang.eshop.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(region = "catCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "cats")
 public class Cat {
     @Id
@@ -12,6 +18,16 @@ public class Cat {
 
     private String name;
     private String description;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<CatWoman> catWomanList = new ArrayList<>();
+
+    public List<CatWoman> getCatWomanList() {
+        return catWomanList;
+    }
+
+    public void setCatWomanList(List<CatWoman> catWomanList) {
+        this.catWomanList = catWomanList;
+    }
 
     public String getDescription() {
         return description;

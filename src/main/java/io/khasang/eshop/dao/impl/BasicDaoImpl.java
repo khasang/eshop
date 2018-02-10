@@ -1,8 +1,10 @@
 package io.khasang.eshop.dao.impl;
 
 import io.khasang.eshop.dao.BasicDao;
+import io.khasang.eshop.entity.Cat;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +46,15 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
 
     @Override
     public T add(T entity) {
+        Statistics statistics = sessionFactory.getStatistics();
+
+        if (!statistics.isStatisticsEnabled()) {
+            statistics.setStatisticsEnabled(true);
+        }
+
         getSession().save(entity);
+        getSession().get(Cat.class, 1L);
+
         return entity;
     }
 
@@ -58,5 +68,9 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     public T delete(T entity) {
         getSession().delete(entity);
         return entity;
+    }
+
+    void check(){
+
     }
 }
