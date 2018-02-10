@@ -11,7 +11,7 @@ import java.sql.Date;
 import static org.junit.Assert.*;
 
 public class OrderControllerIntegrationTest {
-    private final String ROOT = "http://localhost:8080/order";
+    private final String ROOT = "http://localhost:8085/order";
     private final String ADD = "/add";
     private final String GET = "/get";
     private final String UPDATE = "/update";
@@ -20,7 +20,10 @@ public class OrderControllerIntegrationTest {
     @Test
     public void addOrder() {
         Order order = createOrder();
-        getOrder(order);
+
+        Order receivedOrder = getOrder(order.getId());
+        assertNotNull(receivedOrder);
+        assertEquals(order.getId(), receivedOrder.getId());
     }
 
     private Order createOrder() {
@@ -72,28 +75,41 @@ public class OrderControllerIntegrationTest {
         );
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
 
-        getOrder(order);
+        Order receivedOrder = getOrder(order.getId());
+        assertNotNull(receivedOrder);
+        assertEquals(order.getId(), receivedOrder.getId());
     }
 
-    private void getOrder(Order order) {
+    private Order getOrder(Long id) {
         RestTemplate template = new RestTemplate();
         ResponseEntity<Order> responseEntity = template.exchange(
                 ROOT + GET + "?id={id}",
                 HttpMethod.GET,
                 null,
                 Order.class,
-                order.getId()
+                id
         );
 
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
-        Order receivedOrder = responseEntity.getBody();
-        assertNotNull(receivedOrder);
-        assertEquals(order.getId(), receivedOrder.getId());
+        return responseEntity.getBody();
     }
 
     @Test
     public void deleteOrder() {
+        Order order = createOrder();
 
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Order> deletedEntiry = restTemplate.exchange(
+                ROOT + DELETE + "?id={id}",
+                HttpMethod.DELETE,
+                null,
+                Order.class,
+                order.getId()
+        );
+
+        assertEquals("OK", deletedEntiry.getStatusCode().getReasonPhrase());
+
+        Order receivedOrder = getOrder(order.getId());
+        assertNull(receivedOrder);
     }
-
 }
