@@ -81,12 +81,6 @@ public class GoodControllerIntegrationTest {
         assertEquals(updatedGood.getId(), receivedGood.getId());
     }
 
-    private Good update(Good good) {
-        good.setName("Updated good");
-        good.setDescription("Updated description");
-        return good;
-    }
-
     @Test
     public void deleteGood(){
         Good good = createdGood();
@@ -145,4 +139,11 @@ public class GoodControllerIntegrationTest {
         good.setDescription("happy");
         return good;
     }
+
+    private Good update(Good good) {
+        good.setName("Updated good");
+        good.setDescription("Updated description");
+        return good;
+    }
+
 }
