@@ -62,7 +62,7 @@ public class OrderControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         Order order = createOrder();
-        BigDecimal bigDecimal = new BigDecimal(22221.45);
+        BigDecimal bigDecimal = new BigDecimal("22221.45");
         order.setAmount(bigDecimal);
 
         HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
@@ -78,6 +78,7 @@ public class OrderControllerIntegrationTest {
         Order receivedOrder = getOrder(order.getId());
         assertNotNull(receivedOrder);
         assertEquals(order.getId(), receivedOrder.getId());
+        assertEquals(order.getAmount(), receivedOrder.getAmount());
     }
 
     private Order getOrder(Long id) {
