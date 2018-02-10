@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,28 +18,107 @@ public class BasketControllerIntegrationTest {
     private final static String ADD = "/add";
     private final static String UPDATE = "/update";
     private final static String DELETE = "/delete";
-    private final static String GETLIST = "/get";
 
     @Before
     public void init() {
         System.out.println("Init");
     }
 
-    @Test
-    public void add() {
-        Basket basket = createBasket("babi");
-        assertEquals(2, basket.getQuantity());
-        Basket basket1 = createBasket("babi");
-        assertEquals(4, basket1.getQuantity());
-        assertEquals(basket.getUser(), basket1.getUser());
-        deleteProduct(basket1);
+    @After
+    public void clean() {
+        System.out.println("Clean");
     }
 
+    @Test
+    public void addProductInBasket() {
+        Basket basket = createBasket("Bobi", "Chicken");
+        assertEquals(2, basket.getQuantity());
 
-    private Basket createBasket(String users) {
+        Basket basket1 = createBasket("Bobi", "Chicken");
+        assertEquals(4, basket1.getQuantity());
+        assertEquals(basket.getUser(), basket1.getUser());
+
+        Basket basket2 = createBasket("asdqwe", "Mars");
+        assertEquals(basket2.getUser(), "asdqwe");
+        assertEquals(basket2.getGoods(), "Mars");
+
+        assertEquals(deleteProduct(basket1).size(), 0);
+        assertEquals(deleteProduct(basket2).size(),0);
+    }
+
+    @Test
+    public void getGoodsByUser() {
+        Basket basket = createBasket("Bobi", "Chiken");
+        Basket basket1 = createBasket("Kayli", "Eggs");
+        Basket basket2 = createBasket("Bobi", "Марс");
+
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<List<Basket>> responseEntity = template.exchange(
+                ROOT + "/{user}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Basket>>() {
+                },
+                basket.getUser()
+        );
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
+
+        List<Basket> basketList = responseEntity.getBody();
+        assertEquals(basketList.size(), 2);
+        assertNotNull(basketList.get(0));
+        assertEquals(basketList.get(0).getGoods(), basket.getGoods());
+        assertEquals(basketList.get(1).getUser(), basket2.getUser());
+
+        assertEquals(deleteProduct(basket).size(),1);
+        assertEquals(deleteProduct(basket1).size(),0);
+        assertEquals(deleteProduct(basket2).size(),0);
+    }
+
+    @Test
+    public void updateProductInBasket() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        Basket basket = newBasket(users);
+        Basket basket = createBasket("Bobi", "Chiken");
+        Basket basket1 = createBasket("Keyli", "Eggs");
+        Basket basket2 = createBasket("Koort", "Mars");
+
+        basket.setQuantity(6);
+        HttpEntity<Basket> httpEntity = new HttpEntity<>(basket, headers);
+        ResponseEntity<List<Basket>> responseEntity = new RestTemplate().exchange(
+                ROOT + UPDATE,
+                HttpMethod.PUT,
+                httpEntity,
+                new ParameterizedTypeReference<List<Basket>>() {
+                }
+        );
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
+
+        List<Basket> basketList = responseEntity.getBody();
+        assertNotNull(basketList);
+        assertEquals(basketList.get(0).getQuantity(), basket.getQuantity());
+
+        deleteProduct(basket);
+        deleteProduct(basket1);
+        assertEquals(deleteProduct(basket2).size(), 0);
+    }
+
+    @Test
+    public void deleteProductInBasket() {
+        Basket basket = createBasket("Bobi", "Chiken");
+        Basket basket1 = createBasket("Keyli", "Eggs");
+        Basket basket2 = createBasket("Koort", "Mars");
+        Basket basket3 = createBasket("Bobi", "Eggs");
+
+        assertEquals(deleteProduct(basket1).size(),0);
+        assertEquals(deleteProduct(basket2).size(),0);
+        assertEquals(deleteProduct(basket).size(), 1);
+        assertEquals(deleteProduct(basket3).size(), 0);
+    }
+
+    private Basket createBasket(String users, String product) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        Basket basket = newBasket(users, product);
 
         HttpEntity<Basket> httpEntity = new HttpEntity<>(basket, headers);
         RestTemplate template = new RestTemplate();
@@ -58,33 +138,29 @@ public class BasketControllerIntegrationTest {
         return createBasket;
     }
 
-    private Basket newBasket(String users) {
+    private Basket newBasket(String users, String product) {
         Basket basket = new Basket();
         basket.setUser(users);
         basket.setQuantity(2);
-        basket.setGoods("Chicken");
+        basket.setGoods(product);
         basket.setPrice(100);
         return basket;
     }
 
-    private void deleteProduct(Basket basket) {
+    private List<Basket> deleteProduct(Basket basket) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<Basket> httpEntity = new HttpEntity<>(basket, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        List<Basket> basketList = restTemplate.exchange(
+        ResponseEntity<List<Basket>> responseEntity = restTemplate.exchange(
                 ROOT + DELETE,
                 HttpMethod.DELETE,
                 httpEntity,
                 new ParameterizedTypeReference<List<Basket>>() {
                 }
-        ).getBody();
-        assertEquals(0, basketList.size());
+        );
+        return responseEntity.getBody();
     }
 
-    @After
-    public void clean() {
-        System.out.println("Clean");
-    }
 }

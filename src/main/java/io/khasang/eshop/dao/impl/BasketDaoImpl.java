@@ -25,17 +25,6 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
     }
 
     /**
-     * Delete product in basket
-     *
-     * @param product product than we remove from the basket
-     * @return topical list goods
-     */
-    public List<Basket> deleteByProduct(Basket product) {
-        getSession().remove(product);
-        return getGoodsByUser(product.getUser());
-    }
-
-    /**
      * Add new product
      * If the product is in the basket, update its quantity,
      * if not add new ones.
@@ -57,4 +46,13 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
         return product;
     }
 
+    /**
+     * Clear goods in basket
+     * @param user = user name
+     */
+    @Override
+    public void clearBasket(String user){
+        getSession().createQuery("DELETE FROM Basket b WHERE user = :user")
+                .setParameter("user", user);
+    }
 }

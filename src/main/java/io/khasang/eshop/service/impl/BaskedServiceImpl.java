@@ -20,17 +20,22 @@ public class BaskedServiceImpl implements BasketService {
     }
 
     @Override
-    public Basket addBasket(Basket product) {
+    public Basket add(Basket product) {
         return basketDao.add(product);
     }
 
     @Override
-    public List<Basket> delete(Basket product) {
-        return basketDao.deleteByProduct(product);
+    public Basket delete(Basket product) {
+        return basketDao.delete(product);
     }
 
     @Override
-    public Basket updateBasket(Basket product) {
+    public Basket updateProduct(Basket product) {
         return basketDao.update(product);
+    }
+
+    @Override
+    public void clearBasket(String user){
+        basketDao.clearBasket(user);
     }
 }

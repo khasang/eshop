@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * Т.к. это корзина, мы должны иметь возможность:
- * удалять элемент (method - deleteBasket)
+ * удалять элемент (method - deleteProductInBasket)
  * добавление элемента (method - addProductInBasket)
  * обновление товара (method - updateProductInBasket)
- * получение товаров находящихся в корзине, для конкретного пользователя (method - getAllGoodsByUser)
+ * получение товаров находящихся в корзине, для конкретного пользователя (method - getGoodsByUser)
  * Так же после каждой операции мы должны видеть обновленную карзину.
  */
 @Controller
@@ -30,28 +30,31 @@ public class BasketController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public List<Basket> addProductInBasket(@RequestBody Basket basket) {
-        basketService.addBasket(basket);
-        return getAllGoodsByUser(basket.getUser());
+        return getGoodsByUser(basketService.add(basket).getUser());
     }
 
     @RequestMapping(value = "/{user}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Basket> getAllGoodsByUser(@PathVariable(value = "user") String user) {
+    public List<Basket> getGoodsByUser(@PathVariable(value = "user") String user) {
         return basketService.getGoodsByUser(user);
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
-    @ResponseBody
-    public List<Basket> deleteBasket(@RequestBody Basket basket) {
-        return basketService.delete(basket);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     @ResponseBody
     public List<Basket> updateProductInBasket(@RequestBody Basket basket) {
-        basketService.updateBasket(basket);
-        return getAllGoodsByUser(basket.getUser());
+        return getGoodsByUser(basketService.updateProduct(basket).getUser());
     }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public List<Basket> deleteProductInBasket(@RequestBody Basket basket) {
+        return getGoodsByUser(basketService.delete(basket).getUser());
+    }
 
+    @RequestMapping(value = "/clear/{user}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public List<Basket> clearBasket(@PathVariable(value = "user") String user){
+        basketService.clearBasket(user);
+        return getGoodsByUser(user);
+    }
 }

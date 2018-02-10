@@ -19,15 +19,15 @@ public interface BasketService {
      * @param product = new product in Basket
      * @return created Basket
      */
-    Basket addBasket(Basket product);
+    Basket add(Basket product);
 
     /**
      * method for delete specify product by id
      *
      * @param product = product in Basket
-     * @return List goods in Basket
+     * @return delete product
      */
-    List<Basket> delete(Basket product);
+    Basket delete(Basket product);
 
     /**
      * method for update product in Basket
@@ -35,5 +35,11 @@ public interface BasketService {
      * @param product = updated product
      * @return updated product
      */
-    Basket updateBasket(Basket product);
+    Basket updateProduct(Basket product);
+
+    /**
+     * Clear goods in basket
+     * @param user = user name
+     */
+    void clearBasket(String user);
 }
