@@ -15,10 +15,10 @@ import java.util.Map;
 
 @Transactional
 public class BasicDaoImpl<T> implements BasicDao<T> {
-    protected final Class<T> entityClass;
+    private final Class<T> entityClass;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public BasicDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
