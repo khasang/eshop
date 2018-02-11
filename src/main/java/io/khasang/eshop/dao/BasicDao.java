@@ -3,7 +3,6 @@ package io.khasang.eshop.dao;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.Map;
 
 public interface BasicDao<T> {
     /**
