@@ -14,7 +14,7 @@ import java.util.List;
  * добавление элемента (method - addProductInBasket)
  * обновление товара (method - updateProductInBasket)
  * получение товаров находящихся в корзине, для конкретного пользователя (method - getGoodsByUser)
- * Т.к. некоторые оперции проводятся в самой корзине, после её выполнения мы должны видеть обновленную карзину.
+ * Т.к. некоторые оперции проводятся в самой корзине, после её выпоплнения мы должны видеть обновленную карзину.
  */
 @Controller
 @RequestMapping(value = "/basket")
@@ -29,8 +29,8 @@ public class BasketController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public void addProductInBasket(@RequestBody Basket basket) {
-        basketService.add(basket);
+    public List<Basket> addProductInBasket(@RequestBody Basket basket) {
+        return basketService.getGoodsByUser(basketService.add(basket).getUser());
     }
 
     @RequestMapping(value = "/{user}", method = RequestMethod.GET)

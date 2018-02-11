@@ -1,6 +1,7 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "basket")
@@ -13,7 +14,7 @@ public class Basket {
     private String user;
     private String goods;
 
-    private int price;
+    private BigDecimal price;
     private int quantity;
 
     public Basket(){
@@ -43,11 +44,11 @@ public class Basket {
         this.goods = goods;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.http.*;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -143,7 +144,7 @@ public class BasketControllerIntegrationTest {
         basket.setUser(users);
         basket.setQuantity(2);
         basket.setGoods(product);
-        basket.setPrice(100);
+        basket.setPrice(new BigDecimal("100.0"));
         return basket;
     }
 
