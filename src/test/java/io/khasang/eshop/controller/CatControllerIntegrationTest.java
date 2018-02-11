@@ -1,11 +1,15 @@
 package io.khasang.eshop.controller;
 
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.CatWoman;
+import io.khasang.eshop.entity.Food;
 import org.junit.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -145,14 +149,31 @@ public class CatControllerIntegrationTest {
 
         assertNotNull(createdCat);
         assertEquals(cat.getName(), createdCat.getName());
+        assertNotNull(cat.getCatWomanList());
+        assertNotNull(cat.getFood());
+        assertEquals("Whiskas", cat.getFood().getName());
         return createdCat;
     }
 
-    private Cat prefillCat(String barsik) {
+    private Cat prefillCat(String name) {
         Cat cat = new Cat();
-        cat.setName(barsik);
+        cat.setName(name);
         cat.setDescription("happy");
-        cat.setDateOfBirth(new Date());
+        CatWoman catWoman1 = new CatWoman();
+        catWoman1.setName("Murka");
+
+        CatWoman catWoman2 = new CatWoman();
+        catWoman2.setName("Riska");
+
+        ArrayList<CatWoman> catWomanList = new ArrayList<>();
+        catWomanList.add(catWoman1);
+        catWomanList.add(catWoman2);
+
+        cat.setCatWomanList(catWomanList);
+
+        Food food = new Food();
+        food.setName("Whiskas");
+        cat.setFood(food);
         return cat;
     }
 
