@@ -3,6 +3,8 @@ package io.khasang.eshop.entity;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Cacheable
@@ -16,8 +18,9 @@ public class Cat {
 
     private String name;
     private String description;
-    @Transient
-    private String additional;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    List<CatWoman> catWomanList = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -29,6 +32,14 @@ public class Cat {
 
     public String getName() {
         return name;
+    }
+
+    public List<CatWoman> getCatWomanList() {
+        return catWomanList;
+    }
+
+    public void setCatWomanList(List<CatWoman> catWomanList) {
+        this.catWomanList = catWomanList;
     }
 
     public void setName(String name) {
