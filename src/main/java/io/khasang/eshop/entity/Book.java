@@ -1,6 +1,8 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -12,6 +14,21 @@ public class Book {
     private String name;
     private String description;
     private String isdn;
+
+    @ManyToMany
+    private List<Author> authorList = new ArrayList<>();
+
+
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private List<Author> authorList = new ArrayList<>();
+//
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
 
     public String getIsdn() {
         return isdn;

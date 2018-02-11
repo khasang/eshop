@@ -1,12 +1,13 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import org.junit.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -27,6 +28,16 @@ public class BookControllerIntegrationTest {
     @BeforeClass
     public static void globalInit() {
         System.out.println("Global init");
+    }
+
+    @After
+    public void clean() {
+        System.out.println("Clean");
+    }
+
+    @AfterClass
+    public static void GlobalClean() {
+        System.out.println("Global clean");
     }
 
     @Test()
@@ -146,20 +157,18 @@ public class BookControllerIntegrationTest {
         return createdBook;
     }
 
-    private Book prefillBook(String war_and_peace) {
+    private Book prefillBook(String name) {
         Book book = new Book();
-        book.setName(war_and_peace);
+        book.setName(name);
         book.setDescription("book");
+//        List<Author> authorlist = new ArrayList<>();
+//        Author author1 = new Author();
+//        author1.setName("author1");
+//        Author author2 = new Author();
+//        author2.setName("author1");
+//        authorlist.add(author1);
+//        authorlist.add(author2);
+//        book.setList(authorlist);
         return book;
-    }
-
-    @After
-    public void clean() {
-        System.out.println("Clean");
-    }
-
-    @AfterClass
-    public static void GlobalClean() {
-        System.out.println("Global clean");
     }
 }

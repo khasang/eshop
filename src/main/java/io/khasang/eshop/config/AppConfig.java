@@ -1,7 +1,10 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.AuthorDao;
 import io.khasang.eshop.dao.BookDao;
+import io.khasang.eshop.dao.impl.AuthorDaoImpl;
 import io.khasang.eshop.dao.impl.BookDaoImpl;
+import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +55,11 @@ public class AppConfig {
     @Bean
     public BookDao bookDao() {
         return new BookDaoImpl(Book.class);
+    }
+
+    @Bean
+    public AuthorDao authorDao() {
+        return new AuthorDaoImpl(Author.class);
     }
 
     @Bean
