@@ -26,6 +26,50 @@ public class OrderControllerIntegrationTest {
         assertEquals(order.getId(), receivedOrder.getId());
     }
 
+    @Test
+    public void updateOrder() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        Order order = createOrder();
+        BigDecimal bigDecimal = new BigDecimal("22221.45");
+        order.setAmount(bigDecimal);
+
+        HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
+        RestTemplate template = new RestTemplate();
+        ResponseEntity<Order> responseEntity = template.exchange(
+                ROOT + UPDATE,
+                HttpMethod.PUT,
+                httpEntity,
+                Order.class
+        );
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
+
+        Order receivedOrder = getOrder(order.getId());
+        assertNotNull(receivedOrder);
+        assertEquals(order.getId(), receivedOrder.getId());
+        assertEquals(order.getAmount(), receivedOrder.getAmount());
+    }
+
+    @Test
+    public void deleteOrder() {
+        Order order = createOrder();
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Order> deletedEntiry = restTemplate.exchange(
+                ROOT + DELETE + "?id={id}",
+                HttpMethod.DELETE,
+                null,
+                Order.class,
+                order.getId()
+        );
+
+        assertEquals("OK", deletedEntiry.getStatusCode().getReasonPhrase());
+
+        Order receivedOrder = getOrder(order.getId());
+        assertNull(receivedOrder);
+    }
+
     private Order createOrder() {
         Order order = fillOrder();
 
@@ -56,31 +100,6 @@ public class OrderControllerIntegrationTest {
         return order;
     }
 
-    @Test
-    public void updateOrder() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        Order order = createOrder();
-        BigDecimal bigDecimal = new BigDecimal("22221.45");
-        order.setAmount(bigDecimal);
-
-        HttpEntity<Order> httpEntity = new HttpEntity<>(order, headers);
-        RestTemplate template = new RestTemplate();
-        ResponseEntity<Order> responseEntity = template.exchange(
-                ROOT + UPDATE,
-                HttpMethod.PUT,
-                httpEntity,
-                Order.class
-        );
-        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
-
-        Order receivedOrder = getOrder(order.getId());
-        assertNotNull(receivedOrder);
-        assertEquals(order.getId(), receivedOrder.getId());
-        assertEquals(order.getAmount(), receivedOrder.getAmount());
-    }
-
     private Order getOrder(Long id) {
         RestTemplate template = new RestTemplate();
         ResponseEntity<Order> responseEntity = template.exchange(
@@ -93,24 +112,5 @@ public class OrderControllerIntegrationTest {
 
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
         return responseEntity.getBody();
-    }
-
-    @Test
-    public void deleteOrder() {
-        Order order = createOrder();
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Order> deletedEntiry = restTemplate.exchange(
-                ROOT + DELETE + "?id={id}",
-                HttpMethod.DELETE,
-                null,
-                Order.class,
-                order.getId()
-        );
-
-        assertEquals("OK", deletedEntiry.getStatusCode().getReasonPhrase());
-
-        Order receivedOrder = getOrder(order.getId());
-        assertNull(receivedOrder);
     }
 }
