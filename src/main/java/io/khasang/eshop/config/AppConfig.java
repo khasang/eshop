@@ -7,7 +7,6 @@ import io.khasang.eshop.dao.impl.CatDaoImpl;
 import io.khasang.eshop.entity.Basket;
 import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.model.CreateTable;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
-import java.util.List;
 
 @Configuration
 @PropertySource(value = "classpath:util.properties")
