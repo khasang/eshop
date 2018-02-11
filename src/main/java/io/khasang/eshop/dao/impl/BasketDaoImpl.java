@@ -45,14 +45,4 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
         getSession().save(product);
         return product;
     }
-
-    /**
-     * Clear goods in basket
-     * @param user = user name
-     */
-    @Override
-    public void clearBasket(String user){
-        getSession().createQuery("DELETE FROM Basket b WHERE user = :user")
-                .setParameter("user", user);
-    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * добавление элемента (method - addProductInBasket)
  * обновление товара (method - updateProductInBasket)
  * получение товаров находящихся в корзине, для конкретного пользователя (method - getGoodsByUser)
- * Так же после каждой операции мы должны видеть обновленную карзину.
+ * Т.к. некоторые оперции проводятся в самой корзине, после её выполнения мы должны видеть обновленную карзину.
  */
 @Controller
 @RequestMapping(value = "/basket")
@@ -29,8 +29,8 @@ public class BasketController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public List<Basket> addProductInBasket(@RequestBody Basket basket) {
-        return getGoodsByUser(basketService.add(basket).getUser());
+    public void addProductInBasket(@RequestBody Basket basket) {
+        basketService.add(basket);
     }
 
     @RequestMapping(value = "/{user}", method = RequestMethod.GET)
@@ -49,12 +49,5 @@ public class BasketController {
     @ResponseBody
     public List<Basket> deleteProductInBasket(@RequestBody Basket basket) {
         return getGoodsByUser(basketService.delete(basket).getUser());
-    }
-
-    @RequestMapping(value = "/clear/{user}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public List<Basket> clearBasket(@PathVariable(value = "user") String user){
-        basketService.clearBasket(user);
-        return getGoodsByUser(user);
     }
 }

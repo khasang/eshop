@@ -36,10 +36,4 @@ public interface BasketService {
      * @return updated product
      */
     Basket updateProduct(Basket product);
-
-    /**
-     * Clear goods in basket
-     * @param user = user name
-     */
-    void clearBasket(String user);
 }
