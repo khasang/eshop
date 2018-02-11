@@ -18,7 +18,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     protected final Class<T> entityClass;
 
     @Autowired
-    protected SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     public BasicDaoImpl(Class<T> entityClass) {
         this.entityClass = entityClass;
