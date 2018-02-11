@@ -11,8 +11,8 @@ import java.util.List;
 @Service(value = "basketService")
 public class BaskedServiceImpl implements BasketService {
 
-     @Autowired
-     public BasketDao basketDao;
+    @Autowired
+    public BasketDao basketDao;
 
     @Override
     public List<Basket> getGoodsByUser(String user){

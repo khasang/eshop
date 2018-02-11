@@ -15,7 +15,7 @@ public interface BasketDao extends BasicDao<Basket> {
     List<Basket> getGoodsByUser(String user);
 
     /**
-     * Clear goods in basket
+     * Clear goods in basket by user name
      * @param user = user name
      */
     void clearBasket(String user);
