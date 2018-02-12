@@ -1,32 +1,35 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.*;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "books_authors",
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "book_author",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private ArrayList<Author> authors = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
+
+    public Book() {
+    }
 
     public Book(String name) {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -38,11 +41,11 @@ public class Book {
         this.name = name;
     }
 
-    public ArrayList<Author> getArrayList() {
+    public List<Author> getArrayList() {
         return authors;
     }
 
-    public void setArrayList(ArrayList<Author> authors) {
+    public void setArrayList(List<Author> authors) {
         this.authors = authors;
     }
 
@@ -52,7 +55,7 @@ public class Book {
 
     @Override
     public int hashCode() {
-        return 31 * id + (this.name != null ? name.hashCode() : 0);
+        return 31 * (int) id + (this.name != null ? name.hashCode() : 0);
     }
 
     @Override

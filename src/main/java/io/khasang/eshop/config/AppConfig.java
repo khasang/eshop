@@ -1,9 +1,12 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.BookDao;
 import io.khasang.eshop.dao.CatDao;
 import io.khasang.eshop.dao.PhoneDao;
+import io.khasang.eshop.dao.impl.BookDaoImpl;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
 import io.khasang.eshop.dao.impl.PhoneDaoImpl;
+import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.entity.Phone;
 import io.khasang.eshop.model.CreateTable;
@@ -66,6 +69,11 @@ public class AppConfig {
     @Bean
     public PhoneDao phoneDao(){
         return new PhoneDaoImpl(Phone.class);
+    }
+
+    @Bean
+    public BookDao bookDao() {
+        return new BookDaoImpl(Book.class);
     }
 
     //Добавляем класс с нашими запросами в облако Beans, передав ему объект для связи с сервером
