@@ -1,8 +1,14 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.AnonymousDao;
 import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.UserDao;
+import io.khasang.eshop.dao.impl.AnonymousDaoImpl;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.UserDaoImpl;
+import io.khasang.eshop.entity.Anonymous;
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.User;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -50,6 +56,16 @@ public class AppConfig {
     @Bean
     public CatDao catDao(){
         return new CatDaoImpl(Cat.class);
+    }
+
+    @Bean
+    public UserDao userDao(){
+        return new UserDaoImpl((User.class));
+    }
+
+    @Bean
+    public AnonymousDao anonymousDao() {
+        return new AnonymousDaoImpl(Anonymous.class);
     }
 
     @Bean

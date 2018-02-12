@@ -3,14 +3,13 @@ package io.khasang.eshop.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cats")
-public class Cat {
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @Column(name = "user_id")
     private long id;
     private String name;
-    private String description;
 
     public String getDescription() {
         return description;
@@ -20,14 +19,7 @@ public class Cat {
         this.description = description;
     }
 
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String description;
 
     public long getId() {
         return id;
@@ -35,5 +27,13 @@ public class Cat {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

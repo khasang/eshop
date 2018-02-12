@@ -2,12 +2,13 @@ package io.khasang.eshop.entity;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "cats")
-public class Cat {
+@Table(name = "anonymous")
+public class Anonymous {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cat_id")
+    @Column(name = "anonymous_id")
     private long id;
     private String name;
     private String description;
@@ -36,4 +37,7 @@ public class Cat {
     public void setId(long id) {
         this.id = id;
     }
+
 }
+
+

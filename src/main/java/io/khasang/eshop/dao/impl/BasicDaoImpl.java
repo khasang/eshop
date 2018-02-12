@@ -45,7 +45,6 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     @Override
     public T add(T entity) {
         getSession().save(entity);
-        System.out.println("dasd");
         return entity;
     }
 
