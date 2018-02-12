@@ -1,10 +1,12 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.List;
 import static org.junit.Assert.*;
 
@@ -112,7 +114,6 @@ public class BookControllerIntegrationTest {
     private Book update(Book book) {
         book.setName("Updated book");
         book.setDescription("Updated description");
-        book.setAuthor("Updated author");
         return book;
     }
 
@@ -138,9 +139,23 @@ public class BookControllerIntegrationTest {
 
     private Book createBook() {
         Book book = new Book();
-        book.setAuthor("Dostoevsky");
+
+        Author author1 = new Author();
+        Author author2 = new Author();
+
+        author1.setFirstName("Ilya");
+        author1.setLastName("Ilf");
+        author1.getBookList().add(book);
+
+        author2.setFirstName("Evgeny");
+        author2.setLastName("Petrov");
+        author2.getBookList().add(book);
+
+        book.setName("Golden Calf");
         book.setDescription("Novel");
-        book.setName("Idiot");
+        book.getAuthorList().add(author1);
+        book.getAuthorList().add(author2);
+
         return book;
     }
 }

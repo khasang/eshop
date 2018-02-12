@@ -1,16 +1,23 @@
 package io.khasang.eshop.entity;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
-    private String author;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("bookList")
+    private List<Author> authorList = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -36,11 +43,11 @@ public class Book {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<Author> getAuthorList() {
+        return authorList;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
     }
 }
