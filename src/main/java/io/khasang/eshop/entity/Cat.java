@@ -19,8 +19,8 @@ public class Cat {
     private String name;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    List<CatWoman> catWomanList = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    CatWoman catWoman;
 
     public long getId() {
         return id;
@@ -34,12 +34,12 @@ public class Cat {
         return name;
     }
 
-    public List<CatWoman> getCatWomanList() {
-        return catWomanList;
+    public CatWoman getCatWoman() {
+        return catWoman;
     }
 
-    public void setCatWomanList(List<CatWoman> catWomanList) {
-        this.catWomanList = catWomanList;
+    public void setCatWoman(CatWoman catWoman) {
+        this.catWoman = catWoman;
     }
 
     public void setName(String name) {

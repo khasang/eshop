@@ -147,7 +147,7 @@ public class CatControllerIntegrationTest {
 
         assertNotNull(createdCat);
         assertEquals(cat.getName(), createdCat.getName());
-        assertNotNull(cat.getCatWomanList());
+        assertNotNull(cat.getCatWoman());
         return createdCat;
     }
 
@@ -156,17 +156,10 @@ public class CatControllerIntegrationTest {
         cat.setName(name);
         cat.setDescription("happy");
 
-
         CatWoman catWoman1 = new CatWoman();
         catWoman1.setName("Riska");
+        cat.setCatWoman(catWoman1);
 
-        CatWoman catWoman2 = new CatWoman();
-        catWoman2.setName("Murka");
-
-        List<CatWoman> catWomanList = new ArrayList<>();
-        catWomanList.add(catWoman1);
-        catWomanList.add(catWoman2);
-        cat.setCatWomanList(catWomanList);
         return cat;
     }
 
