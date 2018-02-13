@@ -1,7 +1,6 @@
 package io.khasang.eshop.dao.impl;
 
 import io.khasang.eshop.dao.BookDao;
-import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import org.hibernate.Session;
 
@@ -10,17 +9,11 @@ public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
         super(entityClass);
     }
 
-    public void add() {
-        Session session1 = session.openSession();
-        session1.beginTransaction();
-
-        Book book = new Book("Психология");
-        Author author1 = new Author("Ерик Берн");
-        Author author2 = new Author("Зигмунд Фрейд");
-        book.addAuthor(author1);
-        book.addAuthor(author2);
-        session1.save(book);
-        session1.getTransaction().commit();
-        session1.close();
+    @Override
+    public Book add(Book book) {
+        Session session1 = getSession();
+        session1.persist(book);
+        session1.flush();
+        return book;
     }
 }
