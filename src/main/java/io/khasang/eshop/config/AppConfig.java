@@ -64,11 +64,6 @@ public class AppConfig {
     }
 
     @Bean
-    public Author1Dao author1Dao(){
-        return new Author1DaoImpl(Author1.class);
-    }
-
-    @Bean
     public AuthorDao authorDao(){
         return new AuthorDaoImpl(Author.class);
     }

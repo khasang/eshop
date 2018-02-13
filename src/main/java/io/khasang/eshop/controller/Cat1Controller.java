@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Transactional
 @Controller
 @RequestMapping(value = "/cat1", method = RequestMethod.GET)
 public class Cat1Controller {
