@@ -1,11 +1,8 @@
 package io.khasang.eshop.config;
 
-import io.khasang.eshop.dao.BookDao;
-import io.khasang.eshop.dao.CatDao;
-import io.khasang.eshop.dao.impl.BookDaoIml;
-import io.khasang.eshop.dao.impl.CatDaoImpl;
-import io.khasang.eshop.entity.Book;
-import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.dao.*;
+import io.khasang.eshop.dao.impl.*;
+import io.khasang.eshop.entity.*;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -59,6 +56,21 @@ public class AppConfig {
     @Bean
     public BookDao bookDao(){
         return new BookDaoIml(Book.class);
+    }
+
+    @Bean
+    public Cat1Dao cat1Dao(){
+        return new Cat1DaoImpl(Cat1.class);
+    }
+
+    @Bean
+    public Author1Dao author1Dao(){
+        return new Author1DaoImpl(Author1.class);
+    }
+
+    @Bean
+    public AuthorDao authorDao(){
+        return new AuthorDaoImpl(Author.class);
     }
 
     @Bean

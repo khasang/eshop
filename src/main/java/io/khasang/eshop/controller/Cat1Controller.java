@@ -1,59 +1,57 @@
 package io.khasang.eshop.controller;
 
-import io.khasang.eshop.entity.Cat;
-import io.khasang.eshop.service.CatService;
+import io.khasang.eshop.entity.Cat1;
+import io.khasang.eshop.service.Cat1Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Transactional
 @Controller
-@RequestMapping(value = "/cat", method = RequestMethod.GET)
-//localhost:8080/cat/**
-public class CatController {
+@RequestMapping(value = "/cat1", method = RequestMethod.GET)
+public class Cat1Controller {
 
-    private final CatService catService ;
+    private final Cat1Service cat1Service;
     @Autowired
-    public CatController(CatService catService) {
-        this.catService = catService;
+    public Cat1Controller(Cat1Service cat1Service) {
+        this.cat1Service = cat1Service;
     }
-
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Cat> getAllcCats(){
-        return catService.getAllCats();
+    public List<Cat1> getAllCats(){
+        return cat1Service.getAllCats();
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Cat getCatById(@PathVariable(value = "id")String id){
-        return catService.getById(Long.parseLong(id));
+    public Cat1 getCatById(@PathVariable(value = "id")String id){
+        return cat1Service.getById(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Cat addCat(@RequestBody Cat cat){
-        return catService.addCat(cat);
+    public Cat1 addCat(@RequestBody Cat1 cat1){
+        return cat1Service.addCat(cat1);
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Cat deleteCat(@RequestParam(value = "id")String id){
-        return catService.deleteCat(Long.parseLong(id));
+    public Cat1 deleteCat(@RequestParam(value = "id")String id){
+        return cat1Service.deleteCat(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Cat updateCat(@RequestBody Cat cat){
-        return catService.updateCat(cat);
+    public Cat1 updateCat(@RequestBody Cat1 cat1){
+        return cat1Service.updateCat(cat1);
     }
 
     @RequestMapping(value = "/patch", method = RequestMethod.PATCH, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public Cat patchCat(@RequestBody Cat cat){
-        return catService.patchCat(cat);
+    public Cat1 patchCat(@RequestBody Cat1 cat1){
+        return cat1Service.patchCat(cat1);
     }
-
 }
