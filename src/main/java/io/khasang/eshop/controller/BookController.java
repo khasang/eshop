@@ -19,13 +19,8 @@ public class BookController {
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public void addBook(@RequestBody Book book){
-//        Book book = new Book("Психология");
-//        Author author1 = new Author("Ерик Берн");
-//        Author author2 = new Author("Зигмунд Фрейд");
-//        book.addAuthor(author1);
-//        book.addAuthor(author2);
-        bookService.addBook(book);
+    public void addBook(){
+        bookService.addBook();
     }
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
