@@ -5,6 +5,7 @@ import io.khasang.eshop.entity.Basket;
 
 import javax.persistence.Query;
 import java.util.List;
+import java.util.ServiceConfigurationError;
 
 public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
     public BasketDaoImpl(Class<Basket> entityClass) {
@@ -44,5 +45,9 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
         }
         getSession().save(product);
         return product;
+    }
+
+    public void clear(String user){
+        getSession().createQuery("DELETE FROM Basket b WHERE b.user= 'asdqwe'");
     }
 }

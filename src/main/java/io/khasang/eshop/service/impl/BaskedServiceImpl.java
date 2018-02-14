@@ -33,4 +33,9 @@ public class BaskedServiceImpl implements BasketService {
     public Basket updateProduct(Basket product) {
         return basketDao.update(product);
     }
+
+    @Override
+    public void clear(String user) {
+        basketDao.clear(user);
+    }
 }

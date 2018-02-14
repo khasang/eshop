@@ -47,7 +47,13 @@ public class BasketController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public List<Basket> deleteProductInBasket(@RequestBody Basket basket) {
-        return getGoodsByUser(basketService.delete(basket).getUser());
+    public Basket deleteProductInBasket(@RequestBody Basket basket) {
+        return basketService.delete(basket);
+    }
+
+    @RequestMapping(value = "/clear/{user}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void clearGoods(@PathVariable(value = "user") String user) {
+        basketService.clear(user);
     }
 }

@@ -62,4 +62,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         getSession().delete(entity);
         return entity;
     }
+
+    @Override
+    public void clear(String user) {}
 }
