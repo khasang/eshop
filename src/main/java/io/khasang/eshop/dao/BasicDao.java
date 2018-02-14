@@ -28,7 +28,7 @@ public interface BasicDao<T> {
      * @return created entity
      */
     T add(T entity);
-    void add();
+
     /**
      * method for delete specify entity
      *

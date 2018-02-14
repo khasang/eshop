@@ -9,14 +9,16 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Version
+    private int version;
 
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "book_author",
             joinColumns = {@JoinColumn(name = "book_id")},
             inverseJoinColumns = {@JoinColumn(name = "author_id")})
-    private List<Author> authors = new ArrayList<>();
+    private Set<Author> authors = new HashSet<>();
 
     public Book() {
     }
@@ -41,21 +43,29 @@ public class Book {
         this.name = name;
     }
 
-    public List<Author> getArrayList() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
-    public void setArrayList(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 
-    public void addAuthor(Author author) {
-        this.getArrayList().add(author);
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public void addAuthor(Author author){
+        authors.add(author);
     }
 
     @Override
     public int hashCode() {
-        return 31 * (int) id + (this.name != null ? name.hashCode() : 0);
+        return Objects.hash(name);
     }
 
     @Override

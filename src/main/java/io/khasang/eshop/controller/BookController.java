@@ -1,6 +1,5 @@
 package io.khasang.eshop.controller;
 
-import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.servise.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +26,11 @@ public class BookController {
     @ResponseBody
     public Book getBook(@PathVariable (value = "id") String id){
         return bookService.getBook(Integer.parseInt(id));
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public Book deleteBook(@RequestBody Book book){
+        return bookService.deleteBook(book);
     }
 }

@@ -34,9 +34,6 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     }
 
     @Override
-    public void add() {}
-
-    @Override
     public Session getSession() {
         return session.getCurrentSession();
     }

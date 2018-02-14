@@ -3,7 +3,6 @@ package io.khasang.eshop.controller;
 import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.*;
@@ -16,6 +15,7 @@ public class BookControllerIntegrationTest {
     private final static String ROOT = "http://localhost:8080/book";
     private final static String ADD = "/add";
     private final static String GET = "/get";
+    private final static String DELETE = "/delete";
 
 
     @Before
@@ -48,7 +48,7 @@ public class BookControllerIntegrationTest {
         );
 
         assertEquals("OK", returnBook.getStatusCode().getReasonPhrase());
-        assertEquals("Пси[ология", returnBook.getBody().getName());
+        assertEquals("Психология", returnBook.getBody().getName());
         return book;
     }
 
@@ -66,6 +66,26 @@ public class BookControllerIntegrationTest {
 
         Book book =  responseEntity.getBody();
         assertNotNull(book);
+    }
+
+    @Test
+    public void deleteBook() {
+        Book book = createBook();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        HttpEntity<Book> httpEntity = new HttpEntity<>(book, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<Book> responseEntity = restTemplate.exchange(
+                ROOT + DELETE,
+                HttpMethod.DELETE,
+                httpEntity,
+                Book.class
+        );
+
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
     }
 
     private Book newBook() {

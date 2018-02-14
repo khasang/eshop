@@ -16,4 +16,13 @@ public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
         session1.flush();
         return book;
     }
+
+    @Override
+    public Book delete(Book book) {
+        book.getAuthors().clear();
+        Session session1 = getSession();
+        session1.merge(book);
+        session1.flush();
+        return book;
+    }
 }

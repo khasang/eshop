@@ -1,8 +1,7 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "author")
@@ -11,14 +10,13 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Version
+    private int version;
 
     private String name;
 
     @ManyToMany(mappedBy = "authors")
-//    @JoinTable(name = "book_author",
-//            joinColumns = @JoinColumn(name = "author_id"),
-//            inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private List<Book> books = new ArrayList<>();
+    private Set<Book> books = new HashSet<>();
 
     public Author(){
     }
@@ -43,11 +41,19 @@ public class Author {
         this.name = name;
     }
 
-    public List<Book> getBooks() {
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(Set<Book> books) {
         this.books = books;
     }
 
@@ -57,7 +63,7 @@ public class Author {
 
     @Override
     public int hashCode() {
-        return 31 *(int) id + (name != null ? name.hashCode() : 0);
+        return Objects.hash(name);
     }
 
     @Override
