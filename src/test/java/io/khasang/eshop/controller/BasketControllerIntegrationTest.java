@@ -6,19 +6,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class BasketControllerIntegrationTest {
     private final static String ROOT = "http://localhost:8080/basket";
     private final static String ADD = "/add";
     private final static String UPDATE = "/update";
     private final static String DELETE = "/delete";
+    private final static String CLEAR = "/clear";
 
     @Before
     public void init() {
@@ -43,25 +44,20 @@ public class BasketControllerIntegrationTest {
         assertEquals(basket2.getUser(), "asdqwe");
         assertEquals(basket2.getGoods(), "Mars");
 
-        assertEquals(deleteProduct(basket1).size(), 0);
-        assertEquals(deleteProduct(basket2).size(),0);
+        deleteProduct(basket1);
+        deleteProduct(basket2);
+        ResponseEntity<List<Basket>> responseEntity = getProductUser(basket);
+        assertEquals(0, responseEntity.getBody().size());
     }
 
     @Test
     public void getGoodsByUser() {
         Basket basket = createBasket("Bobi", "Chiken");
-        Basket basket1 = createBasket("Kayli", "Eggs");
+        Basket basket1 = createBasket("Keyli", "Eggs");
         Basket basket2 = createBasket("Bobi", "Марс");
 
         RestTemplate template = new RestTemplate();
-        ResponseEntity<List<Basket>> responseEntity = template.exchange(
-                ROOT + "/{user}",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<Basket>>() {
-                },
-                basket.getUser()
-        );
+        ResponseEntity<List<Basket>> responseEntity = getProductUser(basket);
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
 
         List<Basket> basketList = responseEntity.getBody();
@@ -70,16 +66,19 @@ public class BasketControllerIntegrationTest {
         assertEquals(basketList.get(0).getGoods(), basket.getGoods());
         assertEquals(basketList.get(1).getUser(), basket2.getUser());
 
-        assertEquals(deleteProduct(basket).size(),1);
-        assertEquals(deleteProduct(basket1).size(),0);
-        assertEquals(deleteProduct(basket2).size(),0);
+        assertEquals("Bobi", deleteProduct(basket).getUser());
+        assertEquals("Keyli", deleteProduct(basket1).getUser());
+        assertEquals("Bobi", deleteProduct(basket2).getUser());
+
+        responseEntity = getProductUser(basket);
+        assertEquals(0, responseEntity.getBody().size());
     }
 
     @Test
     public void updateProductInBasket() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        Basket basket = createBasket("Bobi", "Chiken");
+        Basket basket = createBasket("Bobi", "Chicken");
         Basket basket1 = createBasket("Keyli", "Eggs");
         Basket basket2 = createBasket("Koort", "Mars");
 
@@ -98,22 +97,53 @@ public class BasketControllerIntegrationTest {
         assertNotNull(basketList);
         assertEquals(basketList.get(0).getQuantity(), basket.getQuantity());
 
-        deleteProduct(basket);
-        deleteProduct(basket1);
-        assertEquals(deleteProduct(basket2).size(), 0);
+        basket.setVersion(basket.getVersion()+1);
+        assertEquals("Bobi", deleteProduct(basket).getUser());
+        assertEquals("Keyli", deleteProduct(basket1).getUser());
+        assertEquals("Koort", deleteProduct(basket2).getUser());
+    }
+
+    @Test
+    public void clearGoods(){
+        Basket basket = createBasket("Bobi", "Chicken");
+        Basket basket1 = createBasket("Bobi", "Eggs");
+        Basket basket2 = createBasket("Bobi", "Mars");
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Basket> responseEntity = restTemplate.exchange(
+                ROOT + CLEAR + "/{user}",
+                HttpMethod.DELETE,
+                null,
+                Basket.class,
+                basket.getUser()
+        );
+
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
+        assertEquals(0, getProductUser(basket).getBody().size());
     }
 
     @Test
     public void deleteProductInBasket() {
-        Basket basket = createBasket("Bobi", "Chiken");
+        Basket basket = createBasket("Bobi", "Chicken");
         Basket basket1 = createBasket("Keyli", "Eggs");
         Basket basket2 = createBasket("Koort", "Mars");
         Basket basket3 = createBasket("Bobi", "Eggs");
 
-        assertEquals(deleteProduct(basket1).size(),0);
-        assertEquals(deleteProduct(basket2).size(),0);
-        assertEquals(deleteProduct(basket).size(), 1);
-        assertEquals(deleteProduct(basket3).size(), 0);
+        assertEquals("Keyli", deleteProduct(basket1).getUser());
+        assertEquals("Koort", deleteProduct(basket2).getUser());
+        assertEquals("Bobi", deleteProduct(basket).getUser());
+        assertEquals("Bobi", deleteProduct(basket3).getUser());
+    }
+
+    private ResponseEntity<List<Basket>> getProductUser(Basket basket){
+        RestTemplate template = new RestTemplate();
+        return template.exchange(
+                ROOT + "/{user}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Basket>>() {},
+                basket.getUser()
+        );
     }
 
     private Basket createBasket(String users, String product) {
@@ -148,19 +178,20 @@ public class BasketControllerIntegrationTest {
         return basket;
     }
 
-    private List<Basket> deleteProduct(Basket basket) {
+    private Basket deleteProduct(Basket basket) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<Basket> httpEntity = new HttpEntity<>(basket, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<List<Basket>> responseEntity = restTemplate.exchange(
+        ResponseEntity<Basket> responseEntity = restTemplate.exchange(
                 ROOT + DELETE,
                 HttpMethod.DELETE,
                 httpEntity,
-                new ParameterizedTypeReference<List<Basket>>() {
-                }
+                Basket.class
         );
+
+        assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
         return responseEntity.getBody();
     }
 

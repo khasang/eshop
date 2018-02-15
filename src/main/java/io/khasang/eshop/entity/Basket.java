@@ -16,6 +16,8 @@ public class Basket {
 
     private BigDecimal price;
     private int quantity;
+    @Version
+    private int version;
 
     public Basket(){
     }
@@ -58,6 +60,14 @@ public class Basket {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public boolean equals(Basket product) {

@@ -38,7 +38,7 @@ public interface BasketService {
     Basket updateProduct(Basket product);
 
     /**
-     * method for delete goods in Basket by User
+     * Method for delete goods in Basket by User name
      *
      * @param user = User name
      */
