@@ -52,7 +52,14 @@ public class BasketDaoImpl extends BasicDaoImpl<Basket> implements BasketDao {
      * @param user = User name
      */
     public void clear(String user){
-        getSession().createQuery("DELETE FROM Basket b WHERE b.user = :userName")
-        .setParameter("userName", user);
+        List<Basket> basketList = getSession().createQuery("SELECT b FROM Basket b WHERE b.user= :userName")
+                .setParameter("userName", user).list();
+        for(Basket basket: basketList){
+            if(basket.getUser().equals(user)){
+                delete(basket);
+            }
+        }
+//        getSession().createQuery("DELETE Basket b WHERE b.user = :userName")
+//        .setParameter("userName", user);
     }
 }
