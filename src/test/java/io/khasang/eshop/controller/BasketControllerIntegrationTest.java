@@ -44,8 +44,8 @@ public class BasketControllerIntegrationTest {
         assertEquals(basket2.getUser(), "asdqwe");
         assertEquals(basket2.getGoods(), "Mars");
 
-        deleteProduct(basket1);
-        deleteProduct(basket2);
+        assertEquals("Bobi", deleteProduct(basket).getUser());
+        assertEquals("asdqwe", deleteProduct(basket1).getUser());
         ResponseEntity<List<Basket>> responseEntity = getProductUser(basket);
         assertEquals(0, responseEntity.getBody().size());
     }
