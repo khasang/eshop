@@ -114,7 +114,7 @@ public class AnonymousControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-        Anonymous anonymous = prefillAnonymous("Anonym");
+        Anonymous anonymous = prefillAnonymous("anonym");
 
         HttpEntity<Anonymous> httpEntity = new HttpEntity<>(anonymous, headers);
         RestTemplate template = new RestTemplate();
