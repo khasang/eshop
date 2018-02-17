@@ -1,11 +1,13 @@
 package io.khasang.eshop.controller;
 
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.CatWoman;
 import org.junit.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -33,6 +35,11 @@ public class CatControllerIntegrationTest {
     @Before
     public void init() {
         System.out.println("Init");
+    }
+
+    @After
+    public void clean() {
+        System.out.println("Clean");
     }
 
     @Test
@@ -123,18 +130,26 @@ public class CatControllerIntegrationTest {
 
         assertNotNull(createdCat);
         assertEquals(cat.getName(), createdCat.getName());
+        assertNotNull(cat.getCatWomanList());
         return createdCat;
     }
 
-    private Cat prefillCat(String barsik) {
+    private Cat prefillCat(String name ) {
         Cat cat = new Cat();
-        cat.setName(barsik);
+        cat.setName(name);
         cat.setDescription("happy");
-        return cat;
-    }
 
-    @After
-    public void clean() {
-        System.out.println("Clean");
+        CatWoman catWoman1 = new CatWoman();
+
+        catWoman1.setName("Riska");
+        CatWoman catWoman2 = new CatWoman();
+        catWoman2.setName("Murka");
+
+        List<CatWoman> catWomanList = new ArrayList<>();
+        catWomanList.add(catWoman1);
+        catWomanList.add(catWoman2);
+
+        cat.setCatWomanList(catWomanList);
+        return cat;
     }
 }
