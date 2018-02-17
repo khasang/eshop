@@ -9,7 +9,8 @@ public interface BasketDao extends BasicDao<Basket> {
 
     /**
      * method for receiving goods in basket by user name from DB
-     *@param user = user name
+     *
+     * @param user = user name
      * @return List of goods by user name
      */
     List<Basket> getGoodsByUser(String user);

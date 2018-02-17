@@ -97,14 +97,14 @@ public class BasketControllerIntegrationTest {
         assertNotNull(basketList);
         assertEquals(basketList.get(0).getQuantity(), basket.getQuantity());
 
-        basket.setVersion(basket.getVersion()+1);
+        basket.setVersion(basket.getVersion() + 1);
         assertEquals("Bobi", deleteProduct(basket).getUser());
         assertEquals("Keyli", deleteProduct(basket1).getUser());
         assertEquals("Koort", deleteProduct(basket2).getUser());
     }
 
     @Test
-    public void clearGoods(){
+    public void clearGoods() {
         Basket basket = createBasket("Bobi", "Chicken");
         Basket basket1 = createBasket("Bobi", "Eggs");
         Basket basket2 = createBasket("Bobi", "Mars");
@@ -135,13 +135,14 @@ public class BasketControllerIntegrationTest {
         assertEquals("Bobi", deleteProduct(basket3).getUser());
     }
 
-    private ResponseEntity<List<Basket>> getProductUser(Basket basket){
+    private ResponseEntity<List<Basket>> getProductUser(Basket basket) {
         RestTemplate template = new RestTemplate();
         return template.exchange(
                 ROOT + "/{user}",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Basket>>() {},
+                new ParameterizedTypeReference<List<Basket>>() {
+                },
                 basket.getUser()
         );
     }
@@ -174,7 +175,7 @@ public class BasketControllerIntegrationTest {
         basket.setUser(users);
         basket.setQuantity(2);
         basket.setGoods(product);
-        basket.setPrice(new BigDecimal("100.0"));
+        basket.setPrice(100);
         return basket;
     }
 

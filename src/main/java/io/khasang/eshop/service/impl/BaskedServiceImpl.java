@@ -15,7 +15,7 @@ public class BaskedServiceImpl implements BasketService {
     public BasketDao basketDao;
 
     @Override
-    public List<Basket> getGoodsByUser(String user){
+    public List<Basket> getGoodsByUser(String user) {
         return basketDao.getGoodsByUser(user);
     }
 

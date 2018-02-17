@@ -8,7 +8,8 @@ public interface BasketService {
 
     /**
      * method for receiving all goods by user name from DB
-     *@param user = name user's
+     *
+     * @param user = name user's
      * @return List of all goods by user name
      */
     List<Basket> getGoodsByUser(String user);

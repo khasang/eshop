@@ -19,7 +19,7 @@ public class Basket {
     @Version
     private int version;
 
-    public Basket(){
+    public Basket() {
     }
 
     public long getId() {
@@ -50,8 +50,8 @@ public class Basket {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setPrice(int price) {
+        this.price = new BigDecimal(price);
     }
 
     public int getQuantity() {

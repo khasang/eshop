@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Т.к. это корзина, мы должны иметь возможность:
- * удалять элемент (method - deleteProductInBasket)
- * добавление элемента (method - addProductInBasket)
- * обновление товара (method - updateProductInBasket)
- * получение товаров находящихся в корзине, для конкретного пользователя (method - getGoodsByUser)
- * Т.к. некоторые оперции проводятся в самой корзине, после её выпоплнения мы должны видеть обновленную карзину.
+ * Since this is a basket, we should be able to:
+ * delete the element (method - deleteProductInBasket)
+ * adding an element (method - addProductInBasket)
+ * product update (method - updateProductInBasket)
+ * getting goods in the basket, for a specific user (method - getGoodsByUser)
+ * clearing the user's basket (method - clearGoods)
+ * Since some of the operations in the basket itself, after it is executed we need to see the updated cart.
  */
 @Controller
 @RequestMapping(value = "/basket")
