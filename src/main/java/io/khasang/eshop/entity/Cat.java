@@ -11,6 +11,7 @@ public class Cat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cat_id")
     private long id;
+
     private String name;
     private String description;
 

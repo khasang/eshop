@@ -60,7 +60,7 @@ public class AppConfig {
 
     @Bean
     public UserDao userDao(){
-        return new UserDaoImpl((User.class));
+        return new UserDaoImpl(User.class);
     }
 
     @Bean
