@@ -37,7 +37,7 @@ public interface AnonymousService {
      * method for delete specify anonymous by id
      *
      * @param id = anonymous id
-     * @return anonymous by id
+     * @return deleted anonymous by id
      */
     Anonymous delete(long id);
 
