@@ -9,7 +9,6 @@ public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    //Пользователь
     @Column(name = "users")
     private String user;
     private String goods;
