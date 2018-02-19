@@ -1,8 +1,8 @@
-package io.khasang.eshop.servise.impl;
+package io.khasang.eshop.service.impl;
 
 import io.khasang.eshop.dao.BookDao;
 import io.khasang.eshop.entity.Book;
-import io.khasang.eshop.servise.BookService;
+import io.khasang.eshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

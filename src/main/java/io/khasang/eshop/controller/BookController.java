@@ -1,7 +1,7 @@
 package io.khasang.eshop.controller;
 
 import io.khasang.eshop.entity.Book;
-import io.khasang.eshop.servise.BookService;
+import io.khasang.eshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

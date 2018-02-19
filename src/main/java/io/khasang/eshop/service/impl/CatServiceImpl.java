@@ -1,8 +1,8 @@
-package io.khasang.eshop.servise.impl;
+package io.khasang.eshop.service.impl;
 
 import io.khasang.eshop.dao.CatDao;
 import io.khasang.eshop.entity.Cat;
-import io.khasang.eshop.servise.CatService;
+import io.khasang.eshop.service.CatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

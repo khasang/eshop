@@ -1,7 +1,7 @@
 package io.khasang.eshop.controller;
 
 import io.khasang.eshop.entity.Phone;
-import io.khasang.eshop.servise.PhoneService;
+import io.khasang.eshop.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

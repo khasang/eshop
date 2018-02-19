@@ -1,12 +1,10 @@
-package io.khasang.eshop.servise.impl;
+package io.khasang.eshop.service.impl;
 
 import io.khasang.eshop.dao.PhoneDao;
 import io.khasang.eshop.entity.Phone;
-import io.khasang.eshop.servise.PhoneService;
+import io.khasang.eshop.service.PhoneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

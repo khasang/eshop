@@ -1,4 +1,4 @@
-package io.khasang.eshop.servise;
+package io.khasang.eshop.service;
 
 import io.khasang.eshop.entity.Cat;
 
