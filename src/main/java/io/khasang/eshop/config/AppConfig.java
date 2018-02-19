@@ -1,9 +1,12 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.CarDao;
 import io.khasang.eshop.dao.CatDao;
 import io.khasang.eshop.dao.EmployeeDao;
+import io.khasang.eshop.dao.impl.CarDaoImpl;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
 import io.khasang.eshop.dao.impl.EmployeeDaoImpl;
+import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.entity.Employee;
 import io.khasang.eshop.model.CreateTable;
@@ -58,6 +61,11 @@ public class AppConfig {
     @Bean
     public EmployeeDao employeeDao(){
         return new EmployeeDaoImpl(Employee.class);
+    }
+
+    @Bean
+    public CarDao carDao(){
+        return new CarDaoImpl(Car.class);
     }
 
     @Bean

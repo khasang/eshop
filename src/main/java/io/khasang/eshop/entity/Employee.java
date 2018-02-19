@@ -1,6 +1,8 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -13,6 +15,17 @@ public class Employee {
     private String name;
     private String functions;
 
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "employeeList")
+    private List<Car> carList = new ArrayList<>();
+
+    public List<Car> getCarList() {
+        return carList;
+    }
+
+    public void setCarList(List<Car> carList) {
+        this.carList = carList;
+    }
+
     public long getId() {
         return id;
     }
@@ -21,8 +34,8 @@ public class Employee {
         this.id = id;
     }
 
-    public String getName(){
-        return  name;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
