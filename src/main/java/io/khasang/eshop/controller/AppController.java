@@ -1,5 +1,6 @@
 package io.khasang.eshop.controller;
 import io.khasang.eshop.model.*;
+import io.khasang.eshop.util.CheckText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,11 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.MalformedURLException;
+
 @Controller
 public class AppController {
 
     @Autowired
     private CrudOperations crudOperations;
+
+    @Autowired
+    private CheckText checkText;
 
     @RequestMapping("/")
     @ResponseBody
@@ -34,6 +40,12 @@ public class AppController {
     @RequestMapping(value = {"/password/{password}"}, method = RequestMethod.GET)
     public String getEncryptedPassword(@PathVariable("password") String password) {
         return new BCryptPasswordEncoder().encode(password);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/text/{text}"}, method = RequestMethod.GET)
+    public String checkText(@PathVariable("text") String text) throws MalformedURLException {
+        return checkText.checkWord(text);
     }
 
     @RequestMapping("/create")
