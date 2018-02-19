@@ -1,10 +1,19 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.BasketDao;
 import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.impl.BasketDaoImpl;
+import io.khasang.eshop.dao.OrderDao;
+import io.khasang.eshop.dao.GoodDao;
 import io.khasang.eshop.dao.EmployeeDao;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.entity.Basket;
+import io.khasang.eshop.dao.impl.OrderDaoImpl;
+import io.khasang.eshop.dao.impl.GoodDaoImpl;
 import io.khasang.eshop.dao.impl.EmployeeDaoImpl;
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.entity.Order;
+import io.khasang.eshop.entity.Good;
 import io.khasang.eshop.entity.Employee;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +67,21 @@ public class AppConfig {
     @Bean
     public EmployeeDao employeeDao(){
         return new EmployeeDaoImpl(Employee.class);
+    }
+
+    @Bean
+    public BasketDao basketDao() {
+        return new BasketDaoImpl(Basket.class);
+    }
+
+    @Bean
+    public OrderDao orderDao() {
+        return new OrderDaoImpl(Order.class);
+    }
+
+    @Bean
+    public GoodDao goodDao(){
+        return new GoodDaoImpl(Good.class);
     }
 
     @Bean
