@@ -6,10 +6,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 public class BasicDaoImpl<T> implements BasicDao<T> {
@@ -36,6 +38,7 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
     public Session getSession() {
         return sessionFactory.getCurrentSession();
     }
+
 
     @Override
     public T getById(long id) {
