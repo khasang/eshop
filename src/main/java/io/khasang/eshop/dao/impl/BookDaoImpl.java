@@ -31,8 +31,8 @@ public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
 
     @Override
     public Book getById(long id) {
-        Session session1 = session.openSession();
-        Book book = session1.load(Book.class, id, LockMode.PESSIMISTIC_READ);
+        Session sessions = session.openSession();
+        Book book = sessions.load(Book.class, id);
         return book;
     }
 }

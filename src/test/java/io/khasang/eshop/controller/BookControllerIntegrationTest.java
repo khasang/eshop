@@ -30,7 +30,7 @@ public class BookControllerIntegrationTest {
 
     @Test
     public void add(){
-        createBook();
+        System.out.println(createBook().toString());
     }
 
     private Book createBook() {
@@ -65,7 +65,7 @@ public class BookControllerIntegrationTest {
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
 
         Book book =  responseEntity.getBody();
-        assertNotNull(book);
+        System.out.println(book);
     }
 
     @Test

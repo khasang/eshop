@@ -1,6 +1,9 @@
 package io.khasang.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Entity
@@ -15,9 +18,10 @@ public class Book {
     private String name;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_author",
-            joinColumns = {@JoinColumn(name = "book_id")},
-            inverseJoinColumns = {@JoinColumn(name = "author_id")})
+//    @JoinTable(name = "book_author",
+//            joinColumns = {@JoinColumn(name = "book_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "author_id")})
+    @JsonIgnoreProperties("books")
     private Set<Author> authors = new HashSet<>();
 
     public Book() {
@@ -77,5 +81,10 @@ public class Book {
         if (id != book.getId()) return false;
         if (name != null ? !name.equals(book.getName()) : book.name != null) return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Book name: " +  this.name + ", author: " + Arrays.toString(this.authors.toArray());
     }
 }

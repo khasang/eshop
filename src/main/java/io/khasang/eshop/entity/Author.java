@@ -1,5 +1,7 @@
 package io.khasang.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -16,6 +18,7 @@ public class Author {
     private String name;
 
     @ManyToMany(mappedBy = "authors")
+    @JsonIgnoreProperties("authors")
     private Set<Book> books = new HashSet<>();
 
     public Author(){
@@ -76,5 +79,10 @@ public class Author {
         if (id != author.getId()) return false;
         if (name != null ? !name.equals(author.getName()) : author.getName() != null) return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Author name: " + this.name;
     }
 }
