@@ -23,8 +23,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book deleteBook(Book book) {
-        return bookDao.delete(book);
+    public Book deleteBook(long id) {
+        return bookDao.delete(getBook(id));
     }
 
 }

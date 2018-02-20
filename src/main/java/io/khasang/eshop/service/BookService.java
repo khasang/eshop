@@ -7,5 +7,5 @@ public interface BookService {
 
     Book getBook(long id);
 
-    Book deleteBook(Book book);
+    Book deleteBook(long id);
 }

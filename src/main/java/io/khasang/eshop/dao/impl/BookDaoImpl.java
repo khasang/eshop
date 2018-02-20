@@ -20,19 +20,4 @@ public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
         sessions.flush();
         return book;
     }
-
-    @Override
-    public Book delete(Book book) {
-        Session sessions = getSession();
-        sessions.delete(book);
-        sessions.flush();
-        return book;
-    }
-
-    @Override
-    public Book getById(long id) {
-        Session sessions = session.openSession();
-        Book book = sessions.load(Book.class, id);
-        return book;
-    }
 }

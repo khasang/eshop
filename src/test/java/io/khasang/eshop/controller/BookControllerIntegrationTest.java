@@ -49,11 +49,12 @@ public class BookControllerIntegrationTest {
 
         assertEquals("OK", returnBook.getStatusCode().getReasonPhrase());
         assertEquals("Психология", returnBook.getBody().getName());
-        return book;
+        return returnBook.getBody();
     }
 
     @Test
     public void getBook(){
+        createBook();
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Book> responseEntity = restTemplate.exchange(
                 ROOT + GET +"/{id}",
@@ -71,21 +72,18 @@ public class BookControllerIntegrationTest {
     @Test
     public void deleteBook() {
         Book book = createBook();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        HttpEntity<Book> httpEntity = new HttpEntity<>(book, headers);
-
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<Book> responseEntity = restTemplate.exchange(
-                ROOT + DELETE,
+                ROOT + DELETE + "/{id}",
                 HttpMethod.DELETE,
-                httpEntity,
-                Book.class
+                null,
+                Book.class,
+               book.getId()
         );
 
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
+        System.out.println(responseEntity.getBody());
     }
 
     private Book newBook() {

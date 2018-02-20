@@ -17,7 +17,7 @@ public class Author {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("authors")
     private Set<Book> books = new HashSet<>();
 

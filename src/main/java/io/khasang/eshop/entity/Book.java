@@ -17,10 +17,7 @@ public class Book {
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "book_author",
-//            joinColumns = {@JoinColumn(name = "book_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "author_id")})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnoreProperties("books")
     private Set<Author> authors = new HashSet<>();
 
