@@ -1,5 +1,6 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.dto.CarDTO;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class CarController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Car> getAllCars() {
+    public List<CarDTO> getAllCars() {
         return carService.getAllCars();
     }
 

@@ -1,6 +1,7 @@
 package io.khasang.eshop.service.impl;
 
 import io.khasang.eshop.dao.CarDao;
+import io.khasang.eshop.dto.CarDTO;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
     @Autowired
     private CarDao carDao;
+    @Autowired
+    private CarDTO carDTO;
 
     @Override
-    public List<Car> getAllCars() {
-        return carDao.getList();
+    public List<CarDTO> getAllCars() {
+        return carDTO.getCarDTOList(carDao.getList());
     }
 
     @Override

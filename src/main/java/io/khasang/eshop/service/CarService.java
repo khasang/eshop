@@ -1,5 +1,6 @@
 package io.khasang.eshop.service;
 
+import io.khasang.eshop.dto.CarDTO;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Cat;
 
@@ -11,7 +12,7 @@ public interface CarService {
      *
      * @return List of all cars
      */
-    List<Car> getAllCars();
+    List<CarDTO> getAllCars();
 
     /**
      * method for receiving specify car by id

@@ -1,5 +1,6 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.dto.CarDTO;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Employee;
@@ -52,15 +53,15 @@ public class CarControllerIntegrationTest {
         createdCar();
 
         RestTemplate template = new RestTemplate();
-        ResponseEntity<List<Car>> responseEntity = template.exchange(
+        ResponseEntity<List<CarDTO>> responseEntity = template.exchange(
                 ROOT + ALL,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Car>>() {
+                new ParameterizedTypeReference<List<CarDTO>>() {
                 }
         );
 
-        List<Car> carList = responseEntity.getBody();
+        List<CarDTO> carList = responseEntity.getBody();
         assertNotNull(carList.get(0));
         assertNotNull(carList.get(1));
     }
