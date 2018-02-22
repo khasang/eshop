@@ -27,7 +27,7 @@ public class BookController {
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Book getBookById(@PathVariable(value = "id") String id) {
+    public BookDTO getBookById(@PathVariable(value = "id") String id) {
         return bookService.getBookById(Long.parseLong(id));
     }
 

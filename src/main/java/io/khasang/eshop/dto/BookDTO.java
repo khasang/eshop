@@ -69,6 +69,23 @@ public class BookDTO {
         return bookListDTOS;
     }
 
+    public BookDTO getBookDTO(Book book) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setName(book.getName());
+        bookDTO.setDescription(book.getDescription());
+        bookDTO.setIsdn(book.getIsdn());
+        List<AuthorDTO> authorDTOS = new ArrayList<>();
+        for (Author author : book.getAuthorList()) {
+            AuthorDTO authorDTO = new AuthorDTO();
+            authorDTO.setId(author.getId());
+            authorDTO.setName(author.getName());
+            authorDTOS.add(authorDTO);
+        }
+        bookDTO.setAuthorList(authorDTOS);
+        return bookDTO;
+    }
+
     public void setAuthorList(List<AuthorDTO> authorList) {
         this.authorList = authorList;
     }
