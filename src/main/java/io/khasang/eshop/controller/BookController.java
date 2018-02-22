@@ -1,5 +1,6 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.dto.BookDTO;
 import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BookController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Book> getAllBooks() {
+    public List<BookDTO> getAllBooks() {
         return bookService.getAllBooks();
     }
 

@@ -1,5 +1,6 @@
 package io.khasang.eshop.controller;
 
+import io.khasang.eshop.dto.BookDTO;
 import io.khasang.eshop.entity.Author;
 import io.khasang.eshop.entity.Book;
 import org.junit.*;
@@ -66,14 +67,14 @@ public class BookControllerIntegrationTest {
         createdBook();
         createdBook();
         RestTemplate template = new RestTemplate();
-        ResponseEntity<List<Book>> responseEntity = template.exchange(
+        ResponseEntity<List<BookDTO>> responseEntity = template.exchange(
                 ROOT + GETALL,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Book>>() {
+                new ParameterizedTypeReference<List<BookDTO>>() {
                 }
         );
-        List<Book> bookList = responseEntity.getBody();
+        List<BookDTO> bookList = responseEntity.getBody();
         assertNotNull(bookList.get(0));
         assertNotNull(bookList.get(1));
 

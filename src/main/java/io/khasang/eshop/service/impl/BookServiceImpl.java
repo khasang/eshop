@@ -1,6 +1,7 @@
 package io.khasang.eshop.service.impl;
 
 import io.khasang.eshop.dao.BookDao;
+import io.khasang.eshop.dto.BookDTO;
 import io.khasang.eshop.entity.Book;
 import io.khasang.eshop.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
+    @Autowired
+    private BookDTO bookDTO;
 
     @Override
-    public List<Book> getAllBooks() {
-        return bookDao.getList();
+    public List<BookDTO> getAllBooks() {
+        return bookDTO.getBookDTOList(bookDao.getList());
     }
 
     @Override
