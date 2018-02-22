@@ -1,5 +1,7 @@
 package io.khasang.eshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_id")
     private long id;
 
@@ -15,13 +17,12 @@ public class Book {
     private String description;
     private String isdn;
 
-    @ManyToMany
-    private List<Author> authorList = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Author> authorList = new ArrayList<>();
 
+//  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//  private List<Author> authorList = new ArrayList<>();
 
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//    private List<Author> authorList = new ArrayList<>();
-//
     public List<Author> getAuthorList() {
         return authorList;
     }

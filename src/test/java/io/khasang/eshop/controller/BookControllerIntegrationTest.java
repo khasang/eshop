@@ -9,11 +9,12 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 
 public class BookControllerIntegrationTest {
-    private static final String ROOT = "http://localhost:8085/book";
+    private static final String ROOT = "http://localhost:8080/book";
     private static final String ADD = "/add";
     private static final String GET = "/get";
     private static final String GETALL = "/all";
@@ -161,14 +162,18 @@ public class BookControllerIntegrationTest {
         Book book = new Book();
         book.setName(name);
         book.setDescription("book");
-//        List<Author> authorlist = new ArrayList<>();
-//        Author author1 = new Author();
-//        author1.setName("author1");
-//        Author author2 = new Author();
-//        author2.setName("author1");
-//        authorlist.add(author1);
-//        authorlist.add(author2);
-//        book.setList(authorlist);
+
+        Author author1 = new Author();
+        author1.setName("author1");
+        //author1.getBookList().add(book);
+
+        Author author2 = new Author();
+        author2.setName("author2");
+        //author2.getBookList().add(book);
+        List<Author> authorlist = new ArrayList<>();
+        authorlist.add(author1);
+        authorlist.add(author2);
+        book.setList(authorlist);
         return book;
     }
 }
