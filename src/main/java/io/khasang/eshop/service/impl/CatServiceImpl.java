@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service("catService")
 public class CatServiceImpl implements CatService {
-
     @Autowired
     private CatDao catDao;
 
@@ -30,8 +29,8 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Cat delete(long id) {
-        return catDao.delete(getById(id));
+    public Cat patchCat(Cat cat) {
+        return catDao.update(cat);
     }
 
     @Override
@@ -40,7 +39,7 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public Cat patchCat(Cat cat) {
-        return catDao.update(cat);
+    public Cat delete(long id) {
+        return catDao.delete(getById(id));
     }
 }

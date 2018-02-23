@@ -1,42 +1,47 @@
 package io.khasang.eshop.controller;
 
 import io.khasang.eshop.entity.Cat;
-import io.khasang.eshop.entity.CatWoman;
 import org.junit.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class CatControllerIntegrationTest {
 
     private static final String ROOT = "http://localhost:8080/cat";
     private static final String ADD = "/add";
     private static final String GET = "/get";
-    private static final String DELETE = "/delete";
     private static final String ALL = "/all";
-    private static final String UPDATE = "/update";
+    private static final String DELETE = "/delete";
+
+    @BeforeClass
+    public static void globalInit() {
+        System.out.println("Global init");
+    }
+
+    @AfterClass
+    public static void globalClean() {
+        System.out.println("Global Clean");
+    }
 
     @Before
-    public void init(){
+    public void init() {
         System.out.println("Init");
     }
 
-    @BeforeClass
-    public static void globalInit(){
-        System.out.println("Global Init");
-    }
-
     @Test
-    public void addCat(){
+    public void addCat() {
         Cat cat = createdCat();
 
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Cat> responseEntity = restTemplate.exchange(
+        RestTemplate template = new RestTemplate();
+
+        ResponseEntity<Cat> responseEntity = template.exchange(
                 ROOT + GET + "/{id}",
                 HttpMethod.GET,
                 null,
@@ -45,14 +50,14 @@ public class CatControllerIntegrationTest {
         );
 
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
-        Cat received = responseEntity.getBody();
-        assertNotNull(received);
-        assertEquals(cat.getId(), received.getId());
-        assertNotNull(received.getDescription());
+        Cat receivedCat = responseEntity.getBody();
+        assertNotNull(receivedCat);
+        assertEquals(cat.getId(), receivedCat.getId());
+        assertNotNull(receivedCat.getDescription());
     }
 
     @Test
-    public void getAllCat(){
+    public void getAllCat() {
         createdCat();
         createdCat();
 
@@ -71,36 +76,7 @@ public class CatControllerIntegrationTest {
     }
 
     @Test
-    public void updateCat(){
-        Cat cat = createdCat();
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
-
-        Cat updatedCat = update(cat);
-        HttpEntity<Cat> httpEntity = new HttpEntity<>(updatedCat, httpHeaders);
-        RestTemplate template = new RestTemplate();
-        Cat receivedCat = template.exchange(
-                ROOT + UPDATE,
-                HttpMethod.PUT,
-                httpEntity,
-                Cat.class
-        ).getBody();
-
-        assertNotNull(receivedCat);
-        assertEquals(updatedCat.getName(), receivedCat.getName());
-        assertEquals(updatedCat.getDescription(), receivedCat.getDescription());
-        assertEquals(updatedCat.getId(), receivedCat.getId());
-    }
-
-    private Cat update(Cat cat) {
-        cat.setName("Updated cat");
-        cat.setDescription("Updated description");
-        return cat;
-    }
-
-    @Test
-    public void deleteCat(){
+    public void deleteCat() {
         Cat cat = createdCat();
 
         RestTemplate template = new RestTemplate();
@@ -117,7 +93,7 @@ public class CatControllerIntegrationTest {
         Cat deletedCat = responseEntity.getBody();
         assertNotNull(deletedCat.getName());
 
-        ResponseEntity<Cat> responseForDeletedCat = template.exchange(
+        ResponseEntity<Cat> responseForDeleteCat = template.exchange(
                 ROOT + GET + "/{id}",
                 HttpMethod.GET,
                 null,
@@ -125,20 +101,20 @@ public class CatControllerIntegrationTest {
                 deletedCat.getId()
         );
 
-        assertEquals("OK", responseForDeletedCat.getStatusCode().getReasonPhrase());
-        assertNull(responseForDeletedCat.getBody());
+        assertEquals("OK", responseForDeleteCat.getStatusCode().getReasonPhrase());
+        assertNull(responseForDeleteCat.getBody());
     }
 
     private Cat createdCat() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         Cat cat = prefillCat("Barsik");
 
-        HttpEntity<Cat> httpEntity = new HttpEntity<>(cat, httpHeaders);
-        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<Cat> httpEntity = new HttpEntity<>(cat, headers);
+        RestTemplate template = new RestTemplate();
 
-        Cat createdCat = restTemplate.exchange(
+        Cat createdCat = template.exchange(
                 ROOT + ADD,
                 HttpMethod.POST,
                 httpEntity,
@@ -147,29 +123,18 @@ public class CatControllerIntegrationTest {
 
         assertNotNull(createdCat);
         assertEquals(cat.getName(), createdCat.getName());
-        assertNotNull(cat.getCatWoman());
         return createdCat;
     }
 
-    private Cat prefillCat(String name) {
+    private Cat prefillCat(String barsik) {
         Cat cat = new Cat();
-        cat.setName(name);
+        cat.setName(barsik);
         cat.setDescription("happy");
-
-        CatWoman catWoman1 = new CatWoman();
-        catWoman1.setName("Riska");
-        cat.setCatWoman(catWoman1);
-
         return cat;
     }
 
     @After
-    public void clean(){
+    public void clean() {
         System.out.println("Clean");
-    }
-
-    @AfterClass
-    public static void globalClean(){
-        System.out.println("Global Clean");
     }
 }

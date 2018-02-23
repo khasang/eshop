@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/cat")
+@RequestMapping("/cat")
+// localhost:8080/cat/**
 public class CatController {
     private final CatService catService;
 
@@ -20,14 +21,8 @@ public class CatController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     @ResponseBody
-    public List<Cat> getAllCats(){
+    public List<Cat> getAllCats() {
         return catService.getAllCats();
-    }
-
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Cat getCatById(@PathVariable(value = "id") String id){
-        return catService.getById(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
@@ -50,7 +45,13 @@ public class CatController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Cat deleteCat(@RequestParam(value = "id") String id){
+    public Cat deleteCat(@RequestParam(value = "id") String id) {
         return catService.delete(Long.parseLong(id));
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Cat getCatById(@PathVariable(value = "id") String id) {
+        return catService.getById(Long.parseLong(id));
     }
 }
