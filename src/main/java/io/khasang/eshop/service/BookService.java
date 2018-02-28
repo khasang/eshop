@@ -11,7 +11,7 @@ public interface BookService {
 
     Book addBook(Book book);
 
-    Book getBook(long id);
+    BookDTO getBook(long id);
 
-    Book deleteBook(long id);
+    BookDTO deleteBook(long id);
 }

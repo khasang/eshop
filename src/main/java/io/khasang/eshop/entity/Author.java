@@ -1,9 +1,9 @@
 package io.khasang.eshop.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "author")
@@ -16,11 +16,11 @@ public class Author {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authorsList", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JsonIgnoreProperties("authors")
-    private List<Book> books = new ArrayList<>();
+    private List<Book> booksList = new ArrayList<>();
 
-    public Author(){
+    public Author() {
     }
 
     public Author(String name) {
@@ -51,16 +51,16 @@ public class Author {
         this.version = version;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public List<Book> getBooksList() {
+        return booksList;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBooksList(List<Book> booksList) {
+        this.booksList = booksList;
     }
 
     public void addBook(Book book) {
-        books.add(book);
+        booksList.add(book);
     }
 
     @Override
@@ -70,12 +70,12 @@ public class Author {
         Author author = (Author) o;
         return id == author.id &&
                 Objects.equals(name, author.name) &&
-                Objects.equals(books, author.books);
+                Objects.equals(booksList, author.booksList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, books);
+        return Objects.hash(id, name, booksList);
     }
 
     @Override

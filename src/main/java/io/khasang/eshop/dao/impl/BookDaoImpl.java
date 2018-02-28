@@ -12,12 +12,4 @@ public class BookDaoImpl extends BasicDaoImpl<Book> implements BookDao {
     public BookDaoImpl(Class<Book> entityClass) {
         super(entityClass);
     }
-
-    @Override
-    public Book add(Book book) {
-        Session sessions = getSession();
-        sessions.persist(book);
-        sessions.flush();
-        return book;
-    }
 }

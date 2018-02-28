@@ -34,13 +34,13 @@ public class BookController {
 
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Book getBook(@PathVariable(value = "id") String id) {
+    public BookDTO getBook(@PathVariable(value = "id") String id) {
         return bookService.getBook(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Book deleteBook(@PathVariable(value = "id") String id) {
+    public BookDTO deleteBook(@PathVariable(value = "id") String id) {
         return bookService.deleteBook(Long.parseLong(id));
     }
 }

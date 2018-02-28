@@ -5,6 +5,7 @@ import io.khasang.eshop.entity.Book;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,30 +40,42 @@ public class BookDTO {
         this.name = name;
     }
 
+    public BookDTO getBook(Book book) {
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setName(book.getName());
+        bookDTO.setVersion(book.getVersion());
+        bookDTO.setAuthorsSet(getAuthorDTOList(book.getAuthorsList()));
+
+        return bookDTO;
+    }
+
     public List<BookDTO> getBookDTOList(List<Book> bookList) {
         List<BookDTO> bookDTOS = new ArrayList<>();
         for (Book book : bookList) {
-            List<AuthorDTO> authorDTOS = new ArrayList<>();
-
             BookDTO bookDTO = new BookDTO();
             bookDTO.setId(book.getId());
             bookDTO.setName(book.getName());
             bookDTO.setVersion(book.getVersion());
+            bookDTO.setAuthorsSet(getAuthorDTOList(book.getAuthorsList()));
 
-            for (Author author : book.getAuthors()) {
-                AuthorDTO authorDTO = new AuthorDTO();
-                authorDTO.setId(author.getId());
-                authorDTO.setName(author.getName());
-                authorDTO.setVersion(getVersion());
-
-                authorDTOS.add(authorDTO);
-            }
-
-            bookDTO.setAuthorsSet(authorDTOS);
             bookDTOS.add(bookDTO);
         }
 
         return bookDTOS;
+    }
+
+    private List<AuthorDTO> getAuthorDTOList(List<Author> authorList) {
+        List<AuthorDTO> authorDTOS = new ArrayList<>();
+        for (Author author : authorList) {
+            AuthorDTO authorDTO = new AuthorDTO();
+            authorDTO.setId(author.getId());
+            authorDTO.setName(author.getName());
+            authorDTO.setVersion(getVersion());
+
+            authorDTOS.add(authorDTO);
+        }
+        return authorDTOS;
     }
 
     public void setAuthorsSet(List<AuthorDTO> authorsList) {
@@ -83,5 +96,10 @@ public class BookDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, version, name, authorsList);
+    }
+
+    @Override
+    public String toString() {
+        return "Book name: " + this.name + ", author: " + Arrays.toString(this.authorsList.toArray());
     }
 }
