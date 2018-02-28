@@ -17,9 +17,9 @@ public class Book {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("books")
-    private Set<Author> authors = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JsonIgnoreProperties("books")
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }
@@ -44,11 +44,11 @@ public class Book {
         this.name = name;
     }
 
-    public Set<Author> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(Set<Author> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
@@ -65,19 +65,18 @@ public class Book {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id &&
+                Objects.equals(name, book.name) &&
+                Objects.equals(authors, book.authors);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
-        Book book = (Book) obj;
-        if (id != book.getId()) return false;
-        if (name != null ? !name.equals(book.getName()) : book.name != null) return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, name, authors);
     }
 
     @Override

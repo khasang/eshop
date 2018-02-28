@@ -22,7 +22,6 @@ public class BasicDaoImpl<T> implements BasicDao<T> {
         this.entityClass = entityClass;
     }
 
-    //РАЗОБРАТЬ 35:30
     @Override
     public List<T> getList() {
         CriteriaBuilder builder = session.getCriteriaBuilder();

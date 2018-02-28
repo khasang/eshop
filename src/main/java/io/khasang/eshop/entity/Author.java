@@ -8,7 +8,6 @@ import java.util.*;
 @Entity
 @Table(name = "author")
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,8 +17,8 @@ public class Author {
     private String name;
 
     @ManyToMany(mappedBy = "authors", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("authors")
-    private Set<Book> books = new HashSet<>();
+//    @JsonIgnoreProperties("authors")
+    private List<Book> books = new ArrayList<>();
 
     public Author(){
     }
@@ -52,11 +51,11 @@ public class Author {
         this.version = version;
     }
 
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
@@ -65,20 +64,18 @@ public class Author {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return id == author.id &&
+                Objects.equals(name, author.name) &&
+                Objects.equals(books, author.books);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
-        Author author = (Author) obj;
-
-        if (id != author.getId()) return false;
-        if (name != null ? !name.equals(author.getName()) : author.getName() != null) return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, name, books);
     }
 
     @Override
