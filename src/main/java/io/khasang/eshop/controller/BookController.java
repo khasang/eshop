@@ -43,4 +43,9 @@ public class BookController {
     public BookDTO deleteBook(@PathVariable(value = "id") String id) {
         return bookService.deleteBook(Long.parseLong(id));
     }
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String getBook() {
+        return "book";
+    }
 }
