@@ -37,4 +37,8 @@ public class BookServiceImpl implements BookService {
         return bookDTO.getBook(bookDao.delete(bookDao.getById(id)));
     }
 
+    @Override
+    public BookDTO updateBook(Book book) {
+        return bookDTO.getBook(bookDao.update(book));
+    }
 }

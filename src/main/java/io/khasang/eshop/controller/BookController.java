@@ -32,6 +32,12 @@ public class BookController {
         return bookService.addBook(book);
     }
 
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public BookDTO updateBook(@RequestBody Book book) {
+        return bookService.updateBook(book);
+    }
+
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public BookDTO getBook(@PathVariable(value = "id") String id) {

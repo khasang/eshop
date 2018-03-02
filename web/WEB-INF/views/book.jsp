@@ -1,14 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
-    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <title>Book Menu</title>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
+    <script src="js/jquery.min.js" type="text/javascript"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
 </head>
 
+<body>
 <script>
-    var service = "http://localhost:8080/book";
-    var RestGet = function () {
+    var service = 'http://localhost:8080/book';
+    var RestGetAll = function () {
         $.ajax({
             type: 'GET',
             url: service + '/all',
@@ -22,10 +25,72 @@
             }
         });
     };
+
+    var RestGetById = function (id) {
+        $.ajax({
+            type: 'GET',
+            url: service + "/get/" + id,
+            contentType: 'application/json;utf-8',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+
+    var RestDeleteById = function (id) {
+        $.ajax({
+            type: 'DELETE',
+            url: service + "/delete/" + id,
+            contentType: 'application/json;utf-8',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+
+    var RestAdd = function (text) {
+        $.ajax({
+            type: 'PUT',
+            url: service + "/add",
+            contentType: 'application/json;utf-8',
+            data: text,
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
+
+    var RestUpdate = function (text) {
+        $.ajax({
+            type: 'POST',
+            url: service + "/update",
+            contentType: 'application/json;utf-8',
+            data: text,
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                $('#response').html(JSON.stringify(result));
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#response').html(JSON.stringify(jqXHR));
+            }
+        });
+    };
 </script>
-
-<body>
-
+<div>
 <table class="table">
     <tr>
         <th>Request type</th>
@@ -39,12 +104,60 @@
         </td>
         <td>
             <form>
-                <button type="button" onclick="RestGet()">Try</button>
+                <button type="button" onclick="RestGetAll()">Try</button>
             </form>
         </td>
     </tr>
+    <tr>
+        <td>GET BY ID</td>
+        <td>
+            <code>GET http://localhost:8080/book/get/</code>
+            <input style="width: 20px; height: 20px;" id="getBookId" value=""/>
+        </td>
+        <td>
+            <form>
+                <button type="button" onclick="RestGetById($('#getBookId').val())">Try</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>DELL BY ID</td>
+        <td>
+            <code>DELETE http://localhost:8080/book/delete/</code>
+            <input style="width: 20px; height: 20px;" id="deleteById" value=""/>
+        </td>
+        <td>
+            <from>
+                <button type="button" onclick="RestDeleteById($('#deleteById').val())">Try</button>
+            </from>
+        </td>
+    </tr>
+    <tr>
+        <td>ADD ANTITY</td>
+        <td>
+            <code>ADD http://localhost:8080/book/add<br/></code>
+            <textarea style="width: 410px; height: 110px;" id="addEntity" cold="80"></textarea>
+        </td>
+        <td>
+            <from>
+                <button type="button" onclick="RestAdd($('#addEntity').val())">Try</button>
+            </from>
+        </td>
+    </tr>
+    <tr>
+        <td>UPDATE ANTITY</td>
+        <td>
+            <code>ADD http://localhost:8080/book/update<br/></code>
+            <textarea style="width: 410px; height: 110px;" id="updateEntity" cold="80"></textarea>
+        </td>
+        <td>
+            <from>
+                <button type="button" onclick="RestUpdate($('#updateEntity').val())">Try</button>
+            </from>
+        </td>
+    </tr>
 </table>
-
+</div>
 <div class="panel panel-default">
     <div class="page-heading">
         <strong>RESPONSE</strong>
