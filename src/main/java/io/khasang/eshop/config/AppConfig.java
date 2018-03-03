@@ -14,11 +14,9 @@ import io.khasang.eshop.dao.*;
 import io.khasang.eshop.dao.impl.*;
 import io.khasang.eshop.entity.Basket;
 import io.khasang.eshop.entity.Car;
-import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.entity.Order;
 import io.khasang.eshop.entity.Good;
 import io.khasang.eshop.entity.Employee;
-import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,8 +81,7 @@ public class AppConfig {
         return new CrudOperations(jdbcTemplate());
     }
 
-
-
+    @Bean
     public EmployeeDao employeeDao(){
         return new EmployeeDaoImpl(Employee.class);
     }
@@ -109,8 +106,4 @@ public class AppConfig {
         return new GoodDaoImpl(Good.class);
     }
 
-    @Bean
-    public CreateTable createTable(){
-        return new CreateTable(jdbcTemplate());
-    }
 }

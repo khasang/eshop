@@ -58,6 +58,26 @@ public class CarDTO {
         return carDTOS;
     }
 
+    public CarDTO getCarDTOById(Car car) {
+        List<EmployeeDTO> employeeDTOS = new ArrayList<>();
+
+        CarDTO carDTO = new CarDTO();
+        carDTO.setId(car.getId());
+        carDTO.setModel(car.getModel());
+        carDTO.setYear(car.getYear());
+
+        for (Employee employee : car.getEmployeeList()) {
+            EmployeeDTO employeeDTO = new EmployeeDTO();
+            employeeDTO.setId(employee.getId());
+            employeeDTO.setFunctions(employee.getFunctions());
+            employeeDTO.setName(employee.getName());
+            employeeDTOS.add(employeeDTO);
+
+        }
+        carDTO.setEmployeeList(employeeDTOS);
+        return carDTO;
+    }
+
     public void setEmployeeList(List<EmployeeDTO> employeeList) {
         this.employeeList = employeeList;
     }

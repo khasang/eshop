@@ -28,23 +28,23 @@ public class CarControllerIntegrationTest {
     private static final String DELETE = "/delete";
 
     @Test
-    public void addCat() {
+    public void addCar() {
         Car car = createdCar();
 
         RestTemplate template = new RestTemplate();
 
-        ResponseEntity<Car> responseEntity = template.exchange(
+        ResponseEntity<CarDTO> responseEntity = template.exchange(
                 ROOT + GET + "/{id}",
                 HttpMethod.GET,
                 null,
-                Car.class,
+                CarDTO.class,
                 car.getId()
         );
 
         assertEquals("OK", responseEntity.getStatusCode().getReasonPhrase());
-        Car receivedCat = responseEntity.getBody();
-        assertNotNull(receivedCat);
-        assertEquals(car.getId(), receivedCat.getId());
+        CarDTO receivedCar = responseEntity.getBody();
+        assertNotNull(receivedCar);
+        assertEquals(car.getId(), receivedCar.getId());
     }
 
     @Test

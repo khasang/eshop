@@ -20,7 +20,7 @@ public interface CarService {
      * @param id = car's id
      * @return car by id
      */
-    Car getById(long id);
+    CarDTO getById(long id);
 
     /**
      * method for add cat

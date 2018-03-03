@@ -13,7 +13,7 @@ public interface EmployeeService {
     List<Employee> getAllEmployees();
 
     /**
-     * method for receiving specify cat by id
+     * method for receiving specify employee by id
      *
      * @param id = employees id
      * @return employee by id

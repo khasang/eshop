@@ -7,6 +7,7 @@ import io.khasang.eshop.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.smartcardio.Card;
 import java.util.List;
 
 @Service("carService")
@@ -22,8 +23,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getById(long id) {
-        return carDao.getById(id);
+    public CarDTO getById(long id) {
+        return carDTO.getCarDTOById(carDao.getById(id));
     }
 
     @Override
