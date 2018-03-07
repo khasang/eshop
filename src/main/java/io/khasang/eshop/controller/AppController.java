@@ -29,6 +29,11 @@ public class AppController {
         return "hello";
     }
 
+    @RequestMapping("/bookmenu")
+    public String bookMenu() {
+        return "book";
+    }
+
     @RequestMapping("/create")
     @ResponseBody
     public String createTable() {
