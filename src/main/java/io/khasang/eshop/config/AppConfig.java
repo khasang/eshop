@@ -2,12 +2,7 @@ package io.khasang.eshop.config;
 
 import io.khasang.eshop.dao.*;
 import io.khasang.eshop.dao.impl.*;
-import io.khasang.eshop.entity.Basket;
-import io.khasang.eshop.entity.Car;
-import io.khasang.eshop.entity.Cat;
-import io.khasang.eshop.entity.Order;
-import io.khasang.eshop.entity.Good;
-import io.khasang.eshop.entity.Employee;
+import io.khasang.eshop.entity.*;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -81,6 +76,9 @@ public class AppConfig {
     public GoodDao goodDao(){
         return new GoodDaoImpl(Good.class);
     }
+
+    @Bean
+    public HistoryDao historyDao() { return new HistoryDaoImpl(History.class);}
 
     @Bean
     public CreateTable createTable(){
