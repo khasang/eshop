@@ -1,22 +1,20 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
+@Table(name = "history")
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String user;
+    private long id;
+    private String users;
     private String status;
     private String orders;
-
     @Column(columnDefinition = "DATE")
     private Date date;
-
-
 
     public Long getId() {
         return id;
@@ -26,12 +24,12 @@ public class History {
         this.id = id;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsers() {
+        return users;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsers(String users) {
+        this.users = users;
     }
 
     public String getStatus() {
@@ -42,15 +40,19 @@ public class History {
         this.status = status;
     }
 
+    public String getOrders() {
+        return orders;
+    }
+
+    public void setOrders(String orders) {
+        this.orders = orders;
+    }
+
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public void setOrders(String orders) {
-        this.orders = orders;
     }
 }

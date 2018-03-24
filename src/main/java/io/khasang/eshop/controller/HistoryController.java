@@ -21,25 +21,25 @@ public class HistoryController {
         return historyService.addHistory(history);
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public History getHistoryById(@RequestParam(value = "id") String id) {
+    public History getHistoryById(@PathVariable(value = "id") String id) {
         return historyService.getHistoryById(Long.parseLong(id));
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public History update(@RequestBody History history) {
+    public History updateHistory(@RequestBody History history) {
         return historyService.updateHistory(history);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public History deleteHistory(@RequestParam(value = "id") String id) {
+    public History deleteHistory(@PathVariable(value = "id") String id) {
         return historyService.deleteHistory(Long.parseLong(id));
     }
 
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     @ResponseBody
     public List<History> getAllHistory() {
         return historyService.getAllHistory();
