@@ -1,7 +1,15 @@
 package io.khasang.eshop.config;
 
+import io.khasang.eshop.dao.AnonymousDao;
+import io.khasang.eshop.dao.CarDao;
 import io.khasang.eshop.dao.CatDao;
+import io.khasang.eshop.dao.UserDao;
+import io.khasang.eshop.dao.impl.AnonymousDaoImpl;
+import io.khasang.eshop.dao.impl.CarDaoImpl;
 import io.khasang.eshop.dao.impl.CatDaoImpl;
+import io.khasang.eshop.dao.impl.UserDaoImpl;
+import io.khasang.eshop.entity.Anonymous;
+import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Cat;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +61,24 @@ public class AppConfig {
     }
 
     @Bean
+    public UserDao userDao(){
+        return new UserDaoImpl(User.class);
+    }
+
+    @Bean
+    public AnonymousDao anonymousDao() {
+        return new AnonymousDaoImpl(Anonymous.class);
+    }
+
+    @Bean
+    public CarDao carDao() {
+        return new CarDaoImpl(Car.class);
+    }
+
+    @Bean
     public CreateTable createTable(){
         return new CreateTable(jdbcTemplate());
     }
+
+
 }

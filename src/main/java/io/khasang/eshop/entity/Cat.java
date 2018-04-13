@@ -1,6 +1,8 @@
 package io.khasang.eshop.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "cats")
@@ -12,6 +14,17 @@ public class Cat {
 
     private String name;
     private String description;
+
+    public List<Car> getCarList() {
+        return carList;
+    }
+
+    public void setCarList(List<Car> carList) {
+        this.carList = carList;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "catList")
+    private List<Car> carList = new ArrayList<>();
 
     public String getDescription() {
         return description;
