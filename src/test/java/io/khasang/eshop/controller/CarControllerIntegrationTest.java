@@ -25,6 +25,10 @@ public class CarControllerIntegrationTest {
 
     @Test
     public void addCar() {
+    private static final String DELETE = "/delete";
+
+    @Test
+    public void addCat() {
         Car car = createdCar();
 
         RestTemplate template = new RestTemplate();
@@ -41,6 +45,9 @@ public class CarControllerIntegrationTest {
         Car receivedCar = responseEntity.getBody();
         assertNotNull(receivedCar);
         assertEquals(car.getId(), receivedCar.getId());
+        Car receivedCat = responseEntity.getBody();
+        assertNotNull(receivedCat);
+        assertEquals(car.getId(), receivedCat.getId());
     }
 
     @Test
@@ -60,6 +67,17 @@ public class CarControllerIntegrationTest {
         List<Car> catList = responseEntity.getBody();
         assertNotNull(catList.get(0));
         assertNotNull(catList.get(1));
+        ResponseEntity<List<CarDTO>> responseEntity = template.exchange(
+                ROOT + ALL,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<CarDTO>>() {
+                }
+        );
+
+        List<CarDTO> carList = responseEntity.getBody();
+        assertNotNull(carList.get(0));
+        assertNotNull(carList.get(1));
     }
 
     private Car createdCar() {
@@ -67,11 +85,13 @@ public class CarControllerIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
         Car car = prefillCat("Vaz");
+        Car car = prefillCar("Vaz");
 
         HttpEntity<Car> httpEntity = new HttpEntity<>(car, headers);
         RestTemplate template = new RestTemplate();
 
         Car createdCar = template.exchange(
+        Car createdCat = template.exchange(
                 ROOT + ADD,
                 HttpMethod.POST,
                 httpEntity,
@@ -100,4 +120,26 @@ public class CarControllerIntegrationTest {
         return car;
     }
 
+        assertNotNull(createdCat);
+        return createdCat;
+    }
+
+    private Car prefillCar(String model) {
+        Car car = new Car();
+        car.setModel(model);
+        car.setYear(LocalDate.of(2017, 11, 12));
+
+        Employee employee1 = new Employee();
+        employee1.setName("asdasd");
+
+        Employee employee2 = new Employee();
+        employee2.setName("aasdasdasd");
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee1);
+        employees.add(employee2);
+        car.setEmployeeList(employees);
+
+        return car;
+    }
 }

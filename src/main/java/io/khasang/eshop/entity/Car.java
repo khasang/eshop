@@ -8,10 +8,13 @@ import java.util.List;
 
 @Entity
 public class Car {
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    List<Employee> employeeList = new ArrayList<>();
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private long id;
 @Column(columnDefinition = "DATE")
+    @Column(columnDefinition = "DATE")
     private LocalDate year;
     private String model;
 
@@ -49,4 +52,11 @@ public class Car {
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     List<Cat> catList = new ArrayList<>();
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
 }

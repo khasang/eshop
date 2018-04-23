@@ -11,6 +11,9 @@ import io.khasang.eshop.dao.impl.UserDaoImpl;
 import io.khasang.eshop.entity.Anonymous;
 import io.khasang.eshop.entity.Car;
 import io.khasang.eshop.entity.Cat;
+import io.khasang.eshop.dao.*;
+import io.khasang.eshop.dao.impl.*;
+import io.khasang.eshop.entity.*;
 import io.khasang.eshop.model.CreateTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -74,6 +77,34 @@ public class AppConfig {
     public CarDao carDao() {
         return new CarDaoImpl(Car.class);
     }
+
+    @Bean
+    public EmployeeDao employeeDao(){
+        return new EmployeeDaoImpl(Employee.class);
+    }
+
+    @Bean
+    public CarDao carDao(){
+        return new CarDaoImpl(Car.class);
+    }
+
+    @Bean
+    public BasketDao basketDao() {
+        return new BasketDaoImpl(Basket.class);
+    }
+
+    @Bean
+    public OrderDao orderDao() {
+        return new OrderDaoImpl(Order.class);
+    }
+
+    @Bean
+    public GoodDao goodDao(){
+        return new GoodDaoImpl(Good.class);
+    }
+
+    @Bean
+    public HistoryDao historyDao() { return new HistoryDaoImpl(History.class);}
 
     @Bean
     public CreateTable createTable(){

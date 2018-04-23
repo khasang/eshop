@@ -23,6 +23,11 @@ public class AppController {
         return "OK!";
     }
 
+    @RequestMapping("/catmenu")
+    public String getCatMenu() {
+        return "cat";
+    }
+
     @RequestMapping("/create")
     @ResponseBody
     public String createTable() {
