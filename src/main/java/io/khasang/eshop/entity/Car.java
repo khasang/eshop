@@ -13,7 +13,6 @@ public class Car {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private long id;
-@Column(columnDefinition = "DATE")
     @Column(columnDefinition = "DATE")
     private LocalDate year;
     private String model;
